@@ -1,10 +1,8 @@
 package com.ariamath.shopsmart.service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.ariamath.shopsmart.entity.Like;
 import com.ariamath.shopsmart.entity.Product;
@@ -26,9 +24,8 @@ public class LikeService{
 						@Lazy ProductService ProductService) {
 		this.likeRepository = likeRepository;
 		this.userService = UserService;
-		this.productService = ProductService;
 	}
-
+	
 	public List<LikeResponse> getAllLikesWithParam(Optional<Long> userId, Optional<Long> productId) {
 		List<Like> list;
 		if(userId.isPresent() && productId.isPresent()) {
@@ -42,41 +39,31 @@ public class LikeService{
 		return list.stream().map(LikeResponse::new).collect(Collectors.toList());
 	}
 
-
-	public LikeResponse createOneLike(LikeCreateRequest likeCreateRequest) {
+	public Like createOneLike(LikeCreateRequest likeCreateRequest) {
 		User user = userService.getOneUserById(likeCreateRequest.getUserId());
 		Product product = productService.getOneProductById(likeCreateRequest.getProductId());
 		if(user != null && product != null) {
 			Like likeToSave = new Like();
+			likeToSave.setId(likeCreateRequest.getId());
 			likeToSave.setProduct(product);
 			likeToSave.setUser(user);
-			return new LikeResponse(likeRepository.save(likeToSave));
+			return likeRepository.save(likeToSave);
 		}else		
 			return null;
 	}
 
-	public LikeResponse getOneLikeById(Long likeId) {
-		return new LikeResponse(Objects.requireNonNull(likeRepository.findById(likeId).orElse(null)));
-	}
-/*
-	public List<LikeResponse> getLikesByProductId(Long productId){
-		return likeRepository.getLikesByProductId(productId).stream().map(LikeResponse::new).collect(Collectors.toList());
-	}
- */
-	public List<LikeResponse> getLikesByUserId(Long userId) {
-		return likeRepository.getLikesByUserId(userId).stream().map(LikeResponse::new).collect(Collectors.toList());
+	public Like getOneLikeById(Long likeId) {
+		return likeRepository.findById(likeId).orElse(null);
 	}
 
 	public void deleteOneLikeById(Long likeId) {
 		likeRepository.deleteById(likeId);
 	}
-
-	public void deleteOneLikeByRequest(LikeCreateRequest likeDeleteRequest) {
-		List<Like> likes = likeRepository.findByUserIdAndProductId(likeDeleteRequest.getUserId(), likeDeleteRequest.getProductId());
-		likeRepository.deleteAll(likes);
-	}
-
-	public Long getLikeCountByProductId(Long productId){
-		return likeRepository.countByProductId(productId);
-	}
+	
+	
+	
+	
+	
+	
+	
 }

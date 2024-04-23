@@ -20,7 +20,8 @@ public class Profile {
     private String profilePicture;
     private String banner;
     private String about;
-    private Double rating;
+
+    //private Double rating;
 
     @OneToOne
     @JsonIgnore
@@ -35,7 +36,7 @@ public class Profile {
         this.banner = "./assets/bannerpiazza.png";
         this.about = "Hey, this looks empty!";
         this.User = user;
-        this.rating = (double) 0;
+        //this.rating = (double) 0;
     }
 
 /*

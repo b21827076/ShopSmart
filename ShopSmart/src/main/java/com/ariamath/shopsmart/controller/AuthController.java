@@ -66,15 +66,16 @@ public class AuthController {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getUser_name(), loginRequest.getPassword(),x.getAuthorities());
         log.info("authoken {}",authToken);
         Authentication auth = authenticationManager.authenticate(authToken);
+        log.info("\nINFO3\n");
         SecurityContextHolder.getContext().setAuthentication(auth);
+        log.info("\nINFO4\n");
         String jwtToken = jwtTokenProvider.generateJwtToken(auth);
+        log.info("\nINFO5\n");
         User user = userService.getOneUserByUserName(loginRequest.getUser_name());
         log.info("user {}", user);
         AuthResponse authResponse = new AuthResponse();
-        authResponse.setAccessToken(jwtToken);
+        authResponse.setAccessToken("Bearer " + jwtToken);
         authResponse.setRefreshToken(refreshTokenService.createRefreshToken(user));
-        authResponse.setRole(user.getRole_name());
-        authResponse.setUsername(user.getUser_name());
         authResponse.setUserId(user.getId());
         return authResponse;
     }
@@ -123,7 +124,6 @@ public class AuthController {
             signupService.saveUserAsPending(user);
             authResponse.setMessage("User successfully added to pending users.");
             authResponse.setUserId(user.getId());
-            authResponse.setUsername(user.getUser_name());
             return new ResponseEntity<>(authResponse, HttpStatus.OK);
         }
         //signupService.assignRoleToPendingUser(user.getUser_name(), pendingUserRequest.getRole_name());
@@ -154,9 +154,8 @@ public class AuthController {
             User user = token.getUser();
             String jwtToken = jwtTokenProvider.generateJwtTokenByUserId(user.getId());
             response.setMessage("token successfully refreshed.");
-            response.setAccessToken(jwtToken);
+            response.setAccessToken("Bearer " + jwtToken);
             response.setUserId(user.getId());
-            response.setUsername(user.getUser_name());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             response.setMessage("refresh token is not valid.");

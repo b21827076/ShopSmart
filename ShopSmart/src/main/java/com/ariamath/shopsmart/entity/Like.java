@@ -23,17 +23,15 @@ public class Like {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
-
-	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	User user;
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id",nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	Product Product;
 	
-
+	@ManyToOne
+	@JoinColumn(name="user_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	User user;
 }

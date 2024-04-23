@@ -6,8 +6,6 @@ import com.ariamath.shopsmart.service.ProductService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +25,8 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Product>> getAllProducts() {
-		return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+	public List<Product> getAllProducts() {
+		return productService.getAllProducts();
 	}
 
 	@GetMapping("/{product_id}")

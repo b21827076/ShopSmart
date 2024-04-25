@@ -1,5 +1,6 @@
 package com.ariamath.shopsmart.response;
 
+import com.ariamath.shopsmart.entity.User;
 import lombok.Data;
 
 @Data
@@ -10,4 +11,5 @@ public class AuthResponse {
     String accessToken;
     String refreshToken;
     String username;
+    User user;
 }

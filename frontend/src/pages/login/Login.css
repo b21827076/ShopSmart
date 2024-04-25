@@ -1,0 +1,22 @@
+.loginContainer {
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center; /* vertically center */
+}
+
+.loginWrapper {
+  /* background-image: url("../../assets/bg-login.webp"); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column; /* stack items vertically */
+  justify-content: center; /* horizontally center */
+  align-items: center; /* vertically center */
+  height: 100%;
+  width: 100%;
+}

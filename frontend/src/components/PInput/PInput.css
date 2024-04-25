@@ -1,0 +1,25 @@
+/* PInput bileşeni için konteyner stilini ayarlayın */
+.p-input-container {
+  display: flex; /* Yatay hizalama için flex */
+  flex-direction: column; /* Elemanları dikey olarak hizalar */
+  margin-bottom: 10px; /* Alt alta olan inputlar arasında boşluk */
+  width: 300px; /* Sabit genişlik, ihtiyacınıza göre değiştirin */
+}
+
+/* Label için stil */
+.p-input-label {
+  margin-bottom: 5px; /* Label altındaki input arasında boşluk */
+}
+
+/* Input alanı için stil */
+.p-input-field {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Konteyner genişliğini doldurur */
+}
+
+/* Açıklama için stil (eğer kullanılacaksa) */
+.p-input-explanation {
+  margin-top: 5px; /* Input üstündeki label arasında boşluk */
+}

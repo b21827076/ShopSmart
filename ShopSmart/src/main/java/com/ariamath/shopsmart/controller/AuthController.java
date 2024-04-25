@@ -73,7 +73,9 @@ public class AuthController {
         AuthResponse authResponse = new AuthResponse();
         authResponse.setAccessToken(jwtToken);
         authResponse.setRefreshToken(refreshTokenService.createRefreshToken(user));
-        authResponse.setUser(user);
+        authResponse.setRole(user.getRole_name());
+        authResponse.setUsername(user.getUser_name());
+        authResponse.setUserId(user.getId());
         return authResponse;
     }
 /*

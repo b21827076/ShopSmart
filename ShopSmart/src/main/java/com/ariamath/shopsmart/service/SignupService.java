@@ -95,9 +95,10 @@ public class SignupService {
         String jwtToken = jwtTokenProvider.generateJwtToken(auth);
         AuthResponse authResponse = new AuthResponse();
         authResponse.setMessage("User successfully registered.");
-        authResponse.setAccessToken("Bearer " + jwtToken);
+        authResponse.setAccessToken(jwtToken);
         authResponse.setRefreshToken(refreshTokenService.createRefreshToken(User));
         authResponse.setUserId(User.getId());
+        authResponse.setUsername(User.getUser_name());
         log.info("authresponse {}",authResponse);
 
         pendingUserRepository.delete(pendingUser);

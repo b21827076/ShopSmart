@@ -50,15 +50,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedOrigin("*");
+        config.addAllowedMethod("*");
         config.addAllowedHeader("*");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("HEAD");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
@@ -74,18 +67,17 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         */
 
-        httpSecurity.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/ws",
-                        "/ws/**"
-                )
-                .permitAll();
+        httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET,"/ws/**","/ws").permitAll();
 
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/login").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/signup").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/refresh").permitAll();
+
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/user/username/{username}").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/user/{userId}").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/profile").authenticated();
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/auth").hasAnyAuthority("Admin");
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/deny").hasAnyAuthority("Admin");

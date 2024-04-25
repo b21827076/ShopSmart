@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.ariamath.shopsmart.entity.Category;
 import com.ariamath.shopsmart.entity.SubCategory;
+import com.ariamath.shopsmart.response.CategoryResponse;
 import com.ariamath.shopsmart.service.CategoryService;
 import com.ariamath.shopsmart.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,15 +32,15 @@ public class CategoryController{
 		this.subcategoryservice = subcategoryservice;
 	}
 	
-	@GetMapping
-	public List<Category> getAllCategories(){
-		return categoryService.getAllCategories();
+	@GetMapping("")
+	public ResponseEntity<List<Category>> getAllCategories(){
+		return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/{category_id}")
-	public List<	SubCategory> getOneCategoryWithSubCategories(@PathVariable Long category_id){
-		return subcategoryservice.getSubCategories(category_id);
+	public ResponseEntity<List<SubCategory>> getOneCategoryWithSubCategories(@PathVariable Long category_id){
+		return new ResponseEntity<>(subcategoryservice.getSubCategories(category_id),HttpStatus.OK);
 	}
 	
 }

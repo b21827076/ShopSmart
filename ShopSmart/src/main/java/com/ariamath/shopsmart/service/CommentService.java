@@ -2,6 +2,7 @@ package com.ariamath.shopsmart.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -12,9 +13,13 @@ import com.ariamath.shopsmart.repository.CommentRepository;
 import com.ariamath.shopsmart.request.CommentCreateRequest;
 import com.ariamath.shopsmart.request.CommentUpdateRequest;
 import com.ariamath.shopsmart.response.CommentResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class CommentService{
 
 	
@@ -39,11 +44,13 @@ public class CommentService{
 		}
 		else if(user_id.isPresent()) {
 			comments = commentRepository.findByUserId(user_id.get());
-		}else if(product_id.isPresent()) {
+		}
+		else if(product_id.isPresent()) {
 			comments = commentRepository.findByProductId(product_id.get());
-		}else
+		}
+		else
 			comments = commentRepository.findAll();
-		return comments.stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList());
+		return comments.stream().map(CommentResponse::new).collect(Collectors.toList());
 	
 	}
 	
@@ -51,34 +58,52 @@ public class CommentService{
 		return commentRepository.findById(commentId).orElse(null);
 	}
 
-	public Comment createOneComment(CommentCreateRequest request) {
+	public ResponseEntity<CommentResponse> createOneComment(CommentCreateRequest request) {
 		User user = userService.getOneUserById(request.getUserId());
 		Product product = productService.getOneProductById(request.getProductId());
-		if(user != null && product != null) {
+		Comment comment = (Comment) commentRepository.findByUserIdAndProductId(request.getUserId(), request.getProductId());
+		if(user==null){
+			log.info("user bulunamadı");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} else if (product == null) {
+			log.info("product bulunamadı");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} else if (Objects.equals(product.getUser().getId(), user.getId())) {
+			log.info("kendi ürününe yorum yapamazsın");
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		} else if (comment!= null) {
+			log.info("Aynı producta 1'den fazla yorum yapamazsın");
+			return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+		}else {
 			Comment commentToSave = new Comment();
-			commentToSave.setId(request.getId());
 			commentToSave.setProduct(product);
 			commentToSave.setUser(user);
 			commentToSave.setContent(request.getText());
 			commentToSave.setCreatedDate(new Date());
 			commentToSave.setModifiedDate(new Date());
-			return commentRepository.save(commentToSave);
-		}else		
-			return null;
+			commentRepository.save(commentToSave);
+			log.info("Comment olusturuldu");
+			return new ResponseEntity<>(new CommentResponse(commentToSave),HttpStatus.CREATED);
+		}
 	}
 
-	public Comment updateOneCommentById(Long commentId, CommentUpdateRequest request) {
-		Optional<Comment> comment = commentRepository.findById(commentId);
+	public ResponseEntity updateOneCommentById(CommentUpdateRequest request) {
+		Optional<Comment> comment = commentRepository.findById(request.getId());
 		if(comment.isPresent()) {
 			Comment commentToUpdate = comment.get();
 			commentToUpdate.setContent(request.getText());
-			return commentRepository.save(commentToUpdate);
+			commentToUpdate.setModifiedDate(new Date());
+			commentRepository.save(commentToUpdate);
+			log.info("Yorum update edildi");
+			return new ResponseEntity(HttpStatus.OK);
 		}else
-			return null;
+			log.info("Product bulunamadı");
+			return new ResponseEntity(HttpStatus.BAD_GATEWAY);
 	}
 
-	public void deleteOneCommentById(Long commentId) {
+	public ResponseEntity deleteOneCommentById(Long commentId) {
 		commentRepository.deleteById(commentId);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 }

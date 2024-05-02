@@ -90,6 +90,15 @@ public class SecurityConfig {
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/category/**").authenticated();
 
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/likes/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/likes/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/api/likes/").authenticated();
+
+
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/comments/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/api/comments/").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/comments/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/comments/").authenticated();
 
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();

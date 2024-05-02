@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/AriaMath.iml" filepath="$PROJECT_DIR$/.idea/AriaMath.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShopSmart/demo.iml" filepath="$PROJECT_DIR$/ShopSmart/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ShopSmart/shopsmart.iml" filepath="$PROJECT_DIR$/ShopSmart/shopsmart.iml" />
     </modules>
   </component>
 </project>

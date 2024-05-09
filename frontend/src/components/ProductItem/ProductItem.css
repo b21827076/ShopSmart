@@ -1,0 +1,33 @@
+.productItem {
+  background-color: #e0e0e0;
+  border: 2px solid #c0c0c0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 150px;
+  cursor: pointer;
+  border-radius: 15px; /* Köşeleri yumuşat */
+  position: relative;
+}
+
+.productItemName {
+  position: absolute; /* İsim etiketini konumlandırmak için absolute kullanın */
+  width: 170px;
+  bottom: -40px; /* Kategori altındaki boşluk */
+  left: 50%; /* Merkezleme için */
+  transform: translateX(-50%); /* Düzgün merkezlemek için */
+  background-color: #ffffff; /* İsim etiketinin arka plan rengi */
+  padding: 5px 10px; /* İsim etiketinin padding'i */
+  border-radius: 5px; /* İsim etiketinin köşeleri yumuşat */
+  border: 2px solid #c0c0c0;
+  /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* İsim etiketine hafif bir gölge ekleyin */
+}
+
+.productItemImage {
+  width: 100%; /* Resmi kategori genişliğine sığdır */
+  height: auto; /* Yüksekliği orijinal en-boy oranını koruyacak şekilde ayarla */
+  border-radius: 15px; /* Resim köşelerini yumuşat */
+  object-fit: cover; /* Resmi çerçeveye sığdır ve gerekiyorsa kırp */
+}

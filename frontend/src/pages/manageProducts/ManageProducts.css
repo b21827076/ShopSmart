@@ -1,0 +1,65 @@
+.manageProducts {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.manageProductsContent {
+  display: flex;
+}
+
+.manageProductsMain {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.addProductButton {
+  /* Styles for 'Add New Product' button */
+  background-color: #5cb85c; /* Yeşil arka plan rengi */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.addProductButton:hover {
+  background-color: #4cae4c; /* Darken on hover */
+}
+
+.manageProductsList {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.manageProductsList th,
+.manageProductsList td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.manageProductsList button {
+  /* Styles for 'Edit' and 'Delete' buttons */
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.manageProductsList button:hover {
+  background-color: #2980b9;
+}
+
+.editRow {
+  /* Styles for edit row with input fields */
+  background-color: #f1f1f1;
+}
+
+/* Add styles for PInput components here */
+
+/* Add additional styles as necessary */

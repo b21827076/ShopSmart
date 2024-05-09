@@ -1,0 +1,7 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Her bir grid öğesi için minimum genişlik 200px olacak */
+  gap: 10px; /* Sütunlar ve satırlar arası boşluk */
+  padding: 10px; /* Konteynerin dış padding'i */
+  width: 74%; /* Grid konteynerinin tam genişlik kaplamasını sağlar */
+}

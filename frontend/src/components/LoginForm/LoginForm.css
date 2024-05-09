@@ -1,0 +1,50 @@
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+form h3 {
+  color: #666666;
+  font-size: 24px;
+  margin: 2rem;
+}
+
+form h4 {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  font-size: 15px;
+  font-weight: 500;
+  color: #808080;
+  text-align: center;
+}
+
+.alert-text {
+  color: rgb(234, 71, 118);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.success-text{
+  color: rgb(112, 237, 185);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.link-1 {
+  color: rgb(4, 119, 142);
+}
+
+.link-2 {
+  color: rgb(4, 119, 142);
+}
+
+.link-3 {
+  color: rgb(4, 119, 142);
+  font-weight: 900;
+  font-size: 15px;
+}

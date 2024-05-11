@@ -27,7 +27,7 @@ const Subcategories = (props) => {
                     .then((res) => {
                         return res.json();
                     }).then((d) => {
-                        console.log("d:",d)
+                        console.log("Subcategories list:",d)
                         setSubcategories(d);
                         return d;
                     })

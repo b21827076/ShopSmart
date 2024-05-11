@@ -28,8 +28,7 @@ const Categories = (props) => {
             .then((res) => {
               return res.json();
             }).then((data) => {
-              console.log("data:",data);
-              console.log("data[0]: ",data[0])
+              console.log("Main Categories list:",data);
               setCategories(data);
               return data;
             })

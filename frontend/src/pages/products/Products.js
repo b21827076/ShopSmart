@@ -28,7 +28,7 @@ const Products = (props) => {
                 console.log("subcategoryId:", subcategoryId);
                 const response = await fetch(`http://localhost:8080/api/category/${categoryId}/subcategory/${subcategoryId}`, opts);
                 const data = await response.json();
-                console.log("Products data:", data);
+                console.log("Products list:", data);
                 setProducts(data);
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -37,7 +37,7 @@ const Products = (props) => {
 
         fetchProducts();
 
-    }, [categoryId, subcategoryId]); // Bu us
+    }, [categoryId, subcategoryId]);
 
   return (
     <>
@@ -47,14 +47,14 @@ const Products = (props) => {
         <Grid>
           {products.map(product => (
             <ProductItem
-            /*
+
               key={product.id}
               productId={product.id}
-              name={product.name}
-              imageUrl={product.img_url}
+              name={product.productName}
+              imageUrl={product.imageUrl}
               description={product.description}
-              likeCount={product.likeCount}
-              */
+              //likeCount={product.likeCount}
+
             />
           ))}
         </Grid>

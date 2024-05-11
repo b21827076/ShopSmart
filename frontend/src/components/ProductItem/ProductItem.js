@@ -13,9 +13,9 @@ const ProductItem = ({ productId, name, imageUrl, description, likeCount }) => {
 
   return (
     <div className="productItem" onClick={navigateToProductDetail}>
-      {imageUrl && <img src={imageUrl} alt={name} className="productItemImage" />}
+      {<img src={imageUrl} alt={name} className="productItemImage" />}
       <div className="productItemName">{name}</div>
-      <div className="productItemLikeCount">Likes: {likeCount}</div>
+        {/*<div className="productItemLikeCount">Likes: {likeCount}</div>*/}
     </div>
   );
 };

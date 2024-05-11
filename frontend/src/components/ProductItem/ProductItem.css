@@ -27,7 +27,17 @@
 
 .productItemImage {
   width: 100%; /* Resmi kategori genişliğine sığdır */
-  height: auto; /* Yüksekliği orijinal en-boy oranını koruyacak şekilde ayarla */
+  /* height: auto; /* Yüksekliği orijinal en-boy oranını koruyacak şekilde ayarla */
+  height: 100%;
+  object-fit: 15px;
   border-radius: 15px; /* Resim köşelerini yumuşat */
   object-fit: cover; /* Resmi çerçeveye sığdır ve gerekiyorsa kırp */
+
+}
+
+.productItemLikeCount {
+  position: absolute;
+  bottom: -20px; /* Altta durması için konumu ayarlayın */
+  left: 50%;
+  transform: translateX(-50%);
 }

@@ -10,15 +10,13 @@ const Admin = (props) => {
   return (
     <>
       <Navbar setSearched={props.setSearched} setKeyword={props.setKeyword}/>
-      <AlertSnackbar
-        isNotify={props.isNotify}
-        setIsNotify={props.setIsNotify}
-        messageSender={props.messageSender}
-      />
-      <div className="announcementsContainer">
-        <Sidebar />
+      <Sidebar />
+
+      <div className="adminContainer">
         <AdminTabs />
+
       </div>
+
     </>
   );
 };

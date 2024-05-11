@@ -60,6 +60,36 @@
   background-color: #f1f1f1;
 }
 
+.scrollable-cell {
+  max-width: 100px; /* Set a fixed width */
+
+
+  overflow: auto; /* Enable scrolling */
+  white-space: nowrap; /* Keep the content in a single line */
+}
+
+/* Custom scrollbar track for Webkit browsers */
+.scrollable-cell::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the tracking area */
+  border-radius: 4px; /* Rounded corners on the tracking area */
+}
+
+.scrollable-cell::-webkit-scrollbar-thumb {
+  background: #0d6cce; /* Color of the scroll thumb */
+  border-radius: 4px; /* Rounded corners on the scroll thumb */
+}
+
+/* Custom scrollbar track for Webkit browsers */
+.scrollable-cell::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the tracking area */
+  border-radius: 8px; /* Rounded corners on the tracking area */
+}
+
+.scrollable-cell::-webkit-scrollbar {
+  height: 12px; /* Height of the horizontal scrollbar */
+  width: 12px; /* Width of the vertical scrollbar */
+}
+
 /* Add styles for PInput components here */
 
 /* Add additional styles as necessary */

@@ -1,0 +1,28 @@
+/* CommentInput.css */
+.comment-input-container {
+    margin-top: 20px;
+}
+
+.comment-input-field {
+    width: 98%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 7px;
+    border: 2px solid #c0c0c0;
+    border-radius: 10px;
+    resize: none; /* Kullanıcının textarea boyutunu değiştirmesini engelle */
+}
+
+.comment-submit-button {
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+.comment-submit-button:hover {
+    background-color: #4cae4c;
+}

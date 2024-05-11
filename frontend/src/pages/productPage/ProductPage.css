@@ -28,7 +28,8 @@
   max-width: 500px; /* Resmin maksimum genişliği */
   height: auto; /* Resmin yüksekliğini otomatik ayarla */
   margin-bottom: 1em; /* Resim altındaki boşluk */
-  border: 5px solid #393939;
+  border: 5px solid #c0c0c0;
+  border-radius: 10px;
 }
 
 /* Ürün açıklaması için stil */

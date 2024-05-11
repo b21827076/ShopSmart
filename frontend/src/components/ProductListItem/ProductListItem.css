@@ -1,0 +1,51 @@
+.productListItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.productImageWrapper {
+    margin-right: 10px;
+
+}
+
+.productImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px; /* Resim kenarlarını yumuşat */
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+/* Tüm metinleri aynı boyutta yap */
+.productListItem p,
+.productListItem input,
+.productListItem textarea {
+    font-size: 16px; /* Varsayılan metin boyutunu belirle */
+    color: black; /* Varsayılan metin rengini belirle */
+    width: 120px; /* Her field için sabit genişlik */
+    margin-right: 10px; /* Field'lar arası boşluk */
+    text-align: left; /* Metni sola hizala */
+    text-align: center;
+}
+
+.editableProductField {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Metin kutuları ve textarea için özel stiller,
+   yükseklikleri uygun hale getir */
+input.editableProductField {
+    height: 30px; /* Input yüksekliğini belirle */
+}
+
+textarea.editableProductField {
+    height: 60px; /* Textarea yüksekliğini belirle */
+    resize: vertical;
+}
+
+/* Diğer stil detayları buraya eklenebilir */

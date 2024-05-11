@@ -1,29 +1,23 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import PInput from '../../components/PInput/PInput';
 import './ManageProducts.css';
+import { useParams, useHistory } from 'react-router-dom';
+import ProductListItem from "../../components/ProductListItem/ProductListItem";
+
 
 const ManageProducts = () => {
   // State hooks for managing products
-  const [products, setProducts] = useState([
-    {
-        id: '1', 
-        name: 'Test Ürünü', 
-        description: 'Test Açıklaması', 
-        imageUrl: 'https://via.placeholder.com/150', 
-        price: '100'
-      },
-    {
-        id: '2', 
-        name: 'Test Ürünü', 
-        description: 'Test Açıklaması', 
-        imageUrl: 'https://via.placeholder.com/150', 
-        price: '100'
-      }
-  ]); // replace with your actual state
+  const [products, setProducts] = useState([]);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [img_url, setImageUrl] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [stock, setStock] = useState('');
+  const [price, setPrice] = useState('');
+  const [merchantName, setMerchantName] = useState('');
 
   // Function to show the add product form
   const handleAddProductClick = () => {
@@ -40,28 +34,99 @@ const ManageProducts = () => {
     // Implement product deletion logic
   };
 
+
+
   // Function to show the edit form for a product
   const handleEditClick = (productId) => {
     const productToEdit = products.find(product => product.id === productId);
     setEditingProduct(productToEdit);
   };
 
+  const role = sessionStorage.getItem("user_role")
+  const token = sessionStorage.getItem("token"); // Token'ı sessionStorage'dan al
 
 
-  // Function to save the edited product
-  const handleSave = (e, productId) => {
-    e.preventDefault();
-    const updatedProducts = products.map(product => 
-      product.id === productId ? editingProduct : product
-    );
-    setProducts(updatedProducts);
-    setEditingProduct(null); // Reset editing product after saving changes
-  };
+  console.log("user role: ", role)
+
 
   // Function to cancel editing
   const handleCancelEdit = () => {
     setEditingProduct(null); // Clear the editing product
   };
+
+  // Function to handle saving the edited product
+  const handleSaveEdit = async (e, productId) => {
+    e.preventDefault();
+
+    // Assuming you have state hooks for each input field
+    const updatedProduct = {
+      id: productId,
+      img_url, // from state
+      name, // from state
+      description, // from state
+      price, // from state
+      stock, // from state
+    };
+
+    const opts = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        // Include other headers such as Authorization if needed
+      },
+      body: JSON.stringify(updatedProduct),
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/product/${productId}`, opts);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Updated product:', data);
+
+      // You might want to refresh the list of products or update the state
+      setProducts(products.map(product => (product.id === productId ? data : product)));
+      setEditingProduct(null); // Hide the edit form after successful update
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+
+  const opts = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // API için yetkilendirme header'ı
+    },
+  };
+
+
+
+  useEffect(() => {
+    const fetchProductsFromDatabase = async () => {
+      let url = 'http://localhost:8080/api/product';
+      const userRole = sessionStorage.getItem("role"); // Or however you retrieve the user role
+
+      // If the user is a merchant, modify the URL to fetch only their products
+      if (userRole === 'merchant') {
+        const userId = sessionStorage.getItem("user_id"); // Assuming you store user ID in session storage
+        url += `?merchantId=${userId}`; // Adjust the URL according to your API's requirements
+      }
+
+      try {
+        const response = await fetch(url, opts);
+        const data = await response.json();
+        setProducts(data);
+        console.log("products:", data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProductsFromDatabase();
+
+  }, []);
 
  
  
@@ -84,63 +149,30 @@ const ManageProducts = () => {
               <PInput label="price" placeholder="price" />
               <PInput label="user_name" placeholder="user_name" />
               <PInput label="subcategory" placeholder="subcategory" />
-              
-              <button type="submit">Kaydet</button>
-              <button type="button" onClick={handleCancelAddProduct}>Vazgeç</button>
+
+              <th>
+                <button type="submit">Submit</button>
+                <button type="button" onClick={handleCancelAddProduct}>Cancel</button>
+              </th>
+
             </form>
           )}
           <table className="manageProductsList">
             <thead>
-              <tr>
-                {/* Table headers */}
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Subcategory</th>
-                <th>Photo</th>
-                <th>Stock</th>
-                <th>User Name</th>
-                <th>Operations</th>
+            <tr>
+
               </tr>
             </thead>
             <tbody>
               {products.map(product => (
-                <>
-                  {/* Product row */}
-                  <tr key={product.id}>
-                    <td>{product.name}</td>
-                    <td>{product.description}</td>
-                    <td>{product.price}</td>
-                    <td>{product.subcategory_name}</td>
-                    <td><img src={product.imageUrl}/></td>
-                    <td>{product.stock}</td>
-                    <td>{product.user_name}</td>
-                    <td>
-                      <button onClick={() => handleEditClick(product.id)}>Duzenle</button>
-                      <button onClick={() => handleDelete(product.id)}>Sil</button>
-                    </td>
-                  </tr>
-                  {/* Edit form row */}
-                  {editingProduct && editingProduct.id === product.id && (
-                    <tr>
-                      <td colSpan="5">
-                        <form onSubmit={(e) => handleSave(e, editingProduct.id)}>
-                            <PInput label="photolink" placeholder="photolink" />
-                            <PInput label="title" placeholder="title" />
-                            <PInput label="content" placeholder="content" />
-                            <PInput label="stock" placeholder="stock" />
-                            <PInput label="price" placeholder="price" />
-                            <PInput label="user_name" placeholder="user_name" />
-                            <PInput label="subcategory" placeholder="subcategory" />
-
-
-                            <button type="submit">Kaydet</button>
-                            <button type="button" onClick={handleCancelEdit}>Vazgeç</button>
-                        </form>
-                      </td>
+                  <>
+                    <tr key = {product.id}>
+                      <ProductListItem
+                          product={product}
+                          //onProductUpdate={handleProductUpdate}
+                      />
                     </tr>
-                  )}
-                </>
+                  </>
               ))}
             </tbody>
           </table>

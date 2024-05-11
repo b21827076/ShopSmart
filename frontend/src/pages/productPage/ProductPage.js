@@ -5,6 +5,7 @@ import RatingStars from '../../components/RatingStars/RatingStars';
 import './ProductPage.css'; // Stil dosyasını eklediğinizden emin olun
 import { useParams } from 'react-router-dom';
 import Comment from '../../components/Comment/Comment';
+import CommentInput from '../../components/CommentInput/CommentInput';
 
 const ProductPage = (props) => {
   const { productId } = useParams(); // URL'den productId parametresini al
@@ -36,6 +37,13 @@ const ProductPage = (props) => {
     }
   }, [productId]); // Bu us
 
+
+  const commentData = {
+    username: 'User123',
+    timestamp: '1 hour ago',
+    text: 'This is a static comment for testing purposes.',
+  };
+
   return (
     <>
       <Navbar setSearched={props.setSearched} setKeyword={props.setKeyword} />
@@ -49,6 +57,13 @@ const ProductPage = (props) => {
           <p>Price: {productDetails?.price}</p>
           <p>Stock: {productDetails?.stock}</p>
           <p>Merchant: {productDetails?.user.user_name}</p>
+
+          <CommentInput onCommentSubmit={(comment) => console.log(comment)} />
+          <Comment
+              username={commentData.username}
+              timestamp={commentData.timestamp}
+              text={commentData.text}
+          />
           {/* <Comment /> */}
           {/* Burada diğer ürün detaylarına yer verebilirsiniz */}
         </div>

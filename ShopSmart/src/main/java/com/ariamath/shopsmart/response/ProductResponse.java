@@ -12,6 +12,7 @@ Long userId;
 String userName;
 String productName;
 String text;
+String imageUrl;
 Long stock;
 Long price;
 List<LikeResponse> productLikes;
@@ -30,6 +31,7 @@ this.text = product.getDescription();
 this.stock = product.getStock();
 this.price = product.getPrice();
 this.productLikes = productLikes;
+this.imageUrl = product.getImg_url();
 }
 
 public ProductResponse(Product product,
@@ -44,6 +46,8 @@ this.stock = product.getStock();
 this.price = product.getPrice();
 this.productLikes = productLikes;
 this.productComments = productComments;
+
+
 }
 
 public ProductResponse(Optional<Product> Product) {
@@ -66,5 +70,6 @@ this.stock = p.getStock();
 this.price = p.getPrice();
 this.likeCount = likeCount;
 this.commentCount = commentCount;
+this.imageUrl = p.getImg_url();
 }
 }

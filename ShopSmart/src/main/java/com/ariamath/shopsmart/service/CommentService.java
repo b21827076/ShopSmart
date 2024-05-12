@@ -105,5 +105,10 @@ public class CommentService{
 		commentRepository.deleteById(commentId);
 		return new ResponseEntity(HttpStatus.OK);
 	}
+
+
+    public Long getCommentCountByProductId(Long id) {
+		return commentRepository.countByProductId(id);
+    }
 	
 }

@@ -80,4 +80,8 @@ public class LikeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@GetMapping("/count/{productId}")
+	public ResponseEntity<Long> getLikeCountByProductId(@PathVariable Long productId) {
+    	return new ResponseEntity<>(likeService.getLikeCountByProductId(productId), HttpStatus.OK);
+	}
 }

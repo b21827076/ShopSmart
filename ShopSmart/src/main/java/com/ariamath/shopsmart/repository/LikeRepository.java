@@ -20,6 +20,9 @@ public interface LikeRepository extends JpaRepository<Like, Long>{
 	@Query(value = "SELECT c FROM Like c WHERE c.Product.id= :productId")
 	List<Like> findByProductId(Long productId);
 
+	@Query(value = "SELECT COUNT(c) FROM Like c WHERE c.Product.id = :productId")
+	Long countByProductId(Long productId);
+
 	/*
 	@Query(value = "SELECT c FROM Like c WHERE c.Product.id = :productId")
 	List<Like> getLikesByProductId(Long productId);

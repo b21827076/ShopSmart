@@ -1,5 +1,6 @@
 package com.ariamath.shopsmart.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +13,12 @@ import com.ariamath.shopsmart.exception.PermissionDenied;
 import com.ariamath.shopsmart.repository.ProductRepository;
 import com.ariamath.shopsmart.request.ProductCreateRequest;
 import com.ariamath.shopsmart.request.ProductUpdateRequest;
+import com.ariamath.shopsmart.response.ProductResponse;
+
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,16 +32,19 @@ public class ProductService {
 	private UserService userService;
 	private SubCategoryService subcategoryService;
 	private LikeService likeService;
+	private CommentService commentService;
 	
 	public ProductService(ProductRepository ProductRepository,
 							UserService userService,
 							SubCategoryService subcategoryService,
-							LikeService likeService) {
+							LikeService likeService,
+							@Lazy CommentService commentService) {
 		
 		this.productRepository = ProductRepository;
 		this.subcategoryService = subcategoryService;
 		this.userService = userService;
 		this.likeService = likeService;
+		this.commentService = commentService;
 	}
 
 	
@@ -184,8 +193,14 @@ public class ProductService {
 	}
 
 
-	public List<Product> getAllProductsBySubCategoryId(Long subcategory_id) {
-		return productRepository.findBySubCategoryId(subcategory_id);
+	public List<ProductResponse> getAllProductsBySubCategoryId(Long subcategory_id) {
+		List<Product> p_list = productRepository.findBySubCategoryId(subcategory_id);
+		List<ProductResponse> response = new ArrayList<>();
+		for(Product p : p_list){
+			ProductResponse pr = new ProductResponse(p,likeService.getLikeCountByProductId(p.getId()),commentService.getCommentCountByProductId(p.getId()));
+			response.add(pr);
+		}
+		return response;
 	}
 	
 }

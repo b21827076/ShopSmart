@@ -26,7 +26,7 @@ public class LikeService{
 						@Lazy ProductService ProductService) {
 		this.likeRepository = likeRepository;
 		this.userService = UserService;
-		productService = ProductService;
+		this.productService = ProductService;
 	}
 
 	public List<LikeResponse> getAllLikesWithParam(Optional<Long> userId, Optional<Long> productId) {
@@ -74,5 +74,9 @@ public class LikeService{
 	public void deleteOneLikeByRequest(LikeCreateRequest likeDeleteRequest) {
 		List<Like> likes = likeRepository.findByUserIdAndProductId(likeDeleteRequest.getUserId(), likeDeleteRequest.getProductId());
 		likeRepository.deleteAll(likes);
+	}
+
+	public Long getLikeCountByProductId(Long productId){
+		return likeRepository.countByProductId(productId);
 	}
 }

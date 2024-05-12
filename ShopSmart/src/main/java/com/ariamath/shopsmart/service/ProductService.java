@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import com.ariamath.shopsmart.entity.Product;
 import com.ariamath.shopsmart.entity.SubCategory;
@@ -17,10 +16,8 @@ import com.ariamath.shopsmart.response.ProductResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -187,11 +184,6 @@ public class ProductService {
 	public Product getOneProductById(Long productId) {
 		return productRepository.findById(productId).orElse(null);
 	}
-	
-	public Optional<Product> getOneProduct(Long product_id) {
-		return productRepository.findById(product_id);
-	}
-
 
 	public List<ProductResponse> getAllProductsBySubCategoryId(Long subcategory_id) {
 		List<Product> p_list = productRepository.findBySubCategoryId(subcategory_id);
@@ -202,5 +194,8 @@ public class ProductService {
 		}
 		return response;
 	}
-	
+
+    public List<Product> searchProduct(String keyword) {
+		return productRepository.findByName(keyword);
+	}
 }

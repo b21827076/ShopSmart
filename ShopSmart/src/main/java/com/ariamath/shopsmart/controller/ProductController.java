@@ -11,11 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
-@RequestMapping(path = "/api/product") 
+@RequestMapping(path = "/api/product")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -32,8 +31,8 @@ public class ProductController {
 	}
 
 	@GetMapping("/{product_id}")
-	public Optional<Product> getOneProduct(@PathVariable Long product_id) {
-		return productService.getOneProduct(product_id);
+	public Product getOneProduct(@PathVariable Long product_id) {
+		return productService.getOneProductById(product_id);
 	}
 
 	@PostMapping()
@@ -51,4 +50,8 @@ public class ProductController {
 		productService.deleteOneProductById(productId);
 	}
 
+	@GetMapping("/search/{keyword}")
+	public ResponseEntity<List<Product>> searchProduct(@PathVariable String keyword){
+		return new ResponseEntity<>(productService.searchProduct(keyword),HttpStatus.OK);
+	}
 }

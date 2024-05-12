@@ -20,13 +20,10 @@ public class Profile {
     private String profilePicture;
     private String banner;
     private String about;
-    private Double rating;
 
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "user_id",referencedColumnName = "id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     private User User;
 
     public Profile(User user) {
@@ -35,7 +32,6 @@ public class Profile {
         this.banner = "./assets/bannerpiazza.png";
         this.about = "Hey, this looks empty!";
         this.User = user;
-        this.rating = (double) 0;
     }
 
 /*

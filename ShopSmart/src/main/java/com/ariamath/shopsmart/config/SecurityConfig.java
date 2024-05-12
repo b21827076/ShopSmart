@@ -74,14 +74,22 @@ public class SecurityConfig {
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/login").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/signup").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/refresh").permitAll();
-
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/user/username/{username}").authenticated();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/user/{userId}").authenticated();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/profile").authenticated();
-
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/auth").hasAnyAuthority("Admin");
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/deny").hasAnyAuthority("Admin");
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/approve").hasAnyAuthority("Admin");
+
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/user/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/user/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/user/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE,"/api/user/**").authenticated();
+
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/profile/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/profile/**").authenticated();
+
+
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/cart/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/cart/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE,"/api/cart/**").authenticated();
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/product/{product_id}").authenticated();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/api/product/").hasAnyAuthority("Merchant","Admin");
@@ -96,9 +104,9 @@ public class SecurityConfig {
 
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/comments/**").authenticated();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/api/comments/").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/api/comments/**").authenticated();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/comments/**").authenticated();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/comments/").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/comments/**").authenticated();
 
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();

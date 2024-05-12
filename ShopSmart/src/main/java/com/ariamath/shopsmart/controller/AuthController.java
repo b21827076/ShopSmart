@@ -78,32 +78,6 @@ public class AuthController {
         authResponse.setUserId(user.getId());
         return authResponse;
     }
-/*
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody LoginRequest registerRequest) {
-        AuthResponse authResponse = new AuthResponse();
-        if(userService.getOneUserByUserName(registerRequest.getUsername()) != null) {
-            authResponse.setMessage("Username already in use.");
-            return new ResponseEntity<>(authResponse, HttpStatus.BAD_REQUEST);
-        }
-
-        User user = new User();
-        user.setUser_name(registerRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        userService.saveOneUser(user);
-
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(registerRequest.getUsername(), registerRequest.getPassword());
-        Authentication auth = authenticationManager.authenticate(authToken);
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        String jwtToken = jwtTokenProvider.generateJwtToken(auth);
-
-        authResponse.setMessage("User successfully registered.");
-        authResponse.setAccessToken("Bearer " + jwtToken);
-        authResponse.setRefreshToken(refreshTokenService.createRefreshToken(user));
-        authResponse.setUserId(user.getId());
-        return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
-    }
- */
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> savePendingUser(@RequestBody PendingUserRequest pendingUserRequest) {
         AuthResponse authResponse = new AuthResponse();

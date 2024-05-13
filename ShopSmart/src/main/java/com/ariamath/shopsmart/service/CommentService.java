@@ -40,7 +40,8 @@ public class CommentService{
 	public List<CommentResponse> getAllCommentsWithParam(Optional<Long> user_id, Optional<Long> product_id) {
 		List<Comment> comments;
 		if(user_id.isPresent() && product_id.isPresent()) {
-			comments = commentRepository.findByUserIdAndProductId(user_id.get() ,product_id.get());
+			Comment comment = commentRepository.findByUserIdAndProductId(user_id.get() ,product_id.get());
+			return List.of(new CommentResponse(comment));
 		}
 		else if(user_id.isPresent()) {
 			comments = commentRepository.findByUserId(user_id.get());
@@ -105,7 +106,6 @@ public class CommentService{
 		commentRepository.deleteById(commentId);
 		return new ResponseEntity(HttpStatus.OK);
 	}
-
 
     public Long getCommentCountByProductId(Long id) {
 		return commentRepository.countByProductId(id);

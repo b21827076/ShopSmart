@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 
 	@Query(value = "SELECT c FROM Comment c WHERE c.user.id = :userId AND c.product.id = :productId")
-	List<Comment> findByUserIdAndProductId(@Param("userId")Long userId, @Param("productId")Long productId);
+	Comment findByUserIdAndProductId(@Param("userId")Long userId, @Param("productId")Long productId);
 
 	@Query(value = "SELECT c FROM Comment c WHERE c.user.id = :userId")
 	List<Comment> findByUserId(@Param("userId")Long userId);

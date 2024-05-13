@@ -34,7 +34,7 @@ const ProductPage = (props) => {
           return res.json();
         })
         .then((data) => {
-          setUserId(data.id);
+          setUserId(data.user.id);
           console.log("data: ", data);
           return data;
         })

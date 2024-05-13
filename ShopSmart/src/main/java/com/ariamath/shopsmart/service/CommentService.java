@@ -39,11 +39,7 @@ public class CommentService{
 
 	public List<CommentResponse> getAllCommentsWithParam(Optional<Long> user_id, Optional<Long> product_id) {
 		List<Comment> comments;
-		if(user_id.isPresent() && product_id.isPresent()) {
-			Comment comment = commentRepository.findByUserIdAndProductId(user_id.get() ,product_id.get());
-			return List.of(new CommentResponse(comment));
-		}
-		else if(user_id.isPresent()) {
+		if(user_id.isPresent()) {
 			comments = commentRepository.findByUserId(user_id.get());
 		}
 		else if(product_id.isPresent()) {
@@ -62,7 +58,6 @@ public class CommentService{
 	public ResponseEntity<CommentResponse> createOneComment(CommentCreateRequest request) {
 		User user = userService.getOneUserById(request.getUserId());
 		Product product = productService.getOneProductById(request.getProductId());
-		Comment comment = (Comment) commentRepository.findByUserIdAndProductId(request.getUserId(), request.getProductId());
 		if(user==null){
 			log.info("user bulunamadı");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -72,7 +67,7 @@ public class CommentService{
 		} else if (Objects.equals(product.getUser().getId(), user.getId())) {
 			log.info("kendi ürününe yorum yapamazsın");
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-		} else if (comment!= null) {
+		} else if (commentRepository.IsThereAComment(product.getId(),user.getId()) == 1) {
 			log.info("Aynı producta 1'den fazla yorum yapamazsın");
 			return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
 		}else {

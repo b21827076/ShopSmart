@@ -23,17 +23,13 @@ public class Comment {
 	@ManyToOne()
 	@JoinColumn(name = "product_id", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
 	private Product product;
 	
 	@ManyToOne()
 	@JoinColumn(name = "user_id", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
 	private User user;
-	
-	@Lob
-    @Column(columnDefinition="text")
+
 	private String content;
 	
 	@Temporal(TemporalType.TIMESTAMP)

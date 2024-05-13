@@ -11,6 +11,13 @@ const ProductPage = (props) => {
   const { productId } = useParams(); // URL'den productId parametresini al
   const [productDetails, setProductDetails] = useState(null); // Ürün detayları için state
   const token = sessionStorage.getItem("token"); // Token'ı sessionStorage'dan al
+  const username = sessionStorage.getItem("username");
+  const [userId, setUserId] = useState();
+  console.log("username: ", username);
+  console.log("userId: ", userId);
+
+
+
 
   const opts = {
     method: "GET",
@@ -19,6 +26,24 @@ const ProductPage = (props) => {
       Authorization: `Bearer ${token}`, // API için yetkilendirme header'ı
     },
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/profile/${username.toString()}`, opts)
+        .then((res) => {
+          console.log("res: ",res);
+          return res.json();
+        })
+        .then((data) => {
+          setUserId(data.id);
+          console.log("data: ", data);
+          return data;
+        })
+        .catch((error) => {
+          console.error("There's an error", error);
+        });
+  }, [username]);
+
+
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -35,7 +60,7 @@ const ProductPage = (props) => {
     if (productId) {
       fetchProductDetails();
     }
-  }, [productId]); // Bu us
+  }, [productId]);
 
 
   const commentData = {
@@ -58,7 +83,7 @@ const ProductPage = (props) => {
           <p>Stock: {productDetails?.stock}</p>
           <p>Merchant: {productDetails?.user.user_name}</p>
 
-          <CommentInput onCommentSubmit={(comment) => console.log(comment)} />
+          <CommentInput productId={productId} userId={userId} onCommentSubmit={(comment) => console.log(comment)} />
           <Comment
               username={commentData.username}
               timestamp={commentData.timestamp}

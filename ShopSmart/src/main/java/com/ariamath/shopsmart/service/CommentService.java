@@ -40,7 +40,9 @@ public class CommentService{
 	public List<CommentResponse> getAllCommentsWithParam(Optional<Long> user_id, Optional<Long> product_id) {
 		List<Comment> comments;
 		if(user_id.isPresent() && product_id.isPresent()) {
-			comments = commentRepository.findByUserIdAndProductId(user_id.get() ,product_id.get());
+			//comments = commentRepository.findByUserIdAndProductId(user_id.get() ,product_id.get());
+			Comment comment = commentRepository.findByUserIdAndProductId(user_id.get() ,product_id.get());
+			return List.of(new CommentResponse(comment));
 		}
 		else if(user_id.isPresent()) {
 			comments = commentRepository.findByUserId(user_id.get());
@@ -61,7 +63,7 @@ public class CommentService{
 	public ResponseEntity<CommentResponse> createOneComment(CommentCreateRequest request) {
 		User user = userService.getOneUserById(request.getUserId());
 		Product product = productService.getOneProductById(request.getProductId());
-		Comment comment = (Comment) commentRepository.findByUserIdAndProductId(request.getUserId(), request.getProductId());
+		Comment comment =  commentRepository.findByUserIdAndProductId(request.getUserId(), request.getProductId());
 		if(user==null){
 			log.info("user bulunamadı");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -55,6 +55,7 @@ const LoginForm = () => {
         password: password,
       }),
     };
+
     fetch("http://localhost:8080/api/auth/login", opts)
       .then((res) => {
         if (res.status === 200) {
@@ -77,7 +78,7 @@ const LoginForm = () => {
         sessionStorage.setItem("id", data.userId);
         sessionStorage.setItem("username", data.username);
         sessionStorage.setItem("user_role", data.role);
-        console.log("id: ",sessionStorage.getItem("id"));
+        console.log("user_id: ",sessionStorage.getItem("id"));
         console.log("token: ",sessionStorage.getItem("token"));
         console.log("username: " ,sessionStorage.getItem("username"));
         setLoading(false); // Loader stops

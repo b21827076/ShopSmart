@@ -63,8 +63,8 @@ public class LikeService{
 		return likeRepository.getLikesByProductId(productId).stream().map(LikeResponse::new).collect(Collectors.toList());
 	}
  */
-	public List<LikeResponse> getLikesByUserId(Long userId) {
-		return likeRepository.getLikesByUserId(userId).stream().map(LikeResponse::new).collect(Collectors.toList());
+	public List<Like> getLikesByUserId(Long userId) {
+		return likeRepository.getLikesByUserId(userId);
 	}
 
 	public void deleteOneLikeById(Long likeId) {

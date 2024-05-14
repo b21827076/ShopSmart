@@ -48,14 +48,9 @@ public class LikeController {
 
 	@PostMapping
 	public ResponseEntity<LikeResponse> createOneLike(@RequestBody LikeCreateRequest likeCreateRequest) {
-		if(userRepository.findById(likeCreateRequest.getUserId()).isEmpty()){
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		} else if (productRepository.findById(likeCreateRequest.getProductId()).isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		List<LikeResponse> likes = likeService.getLikesByUserId(likeCreateRequest.getUserId());
-		for(LikeResponse x :likes){
-			if(Objects.equals(x.getProductId(), likeCreateRequest.getProductId())){
+		List<Like> likes = likeService.getLikesByUserId(likeCreateRequest.getUserId());
+		for(Like x :likes){
+			if(Objects.equals(x.getProduct().getId(), likeCreateRequest.getProductId())){
 				return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
 			}
 		}

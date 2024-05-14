@@ -23,8 +23,8 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/add")
-    public void addToCart(@RequestBody ShoppingCartCreateRequest shoppingCart) {
-        shoppingCartService.addToCart(shoppingCart);
+    public ResponseEntity<HttpStatus> addToCart(@RequestBody ShoppingCartCreateRequest shoppingCart) {
+        return shoppingCartService.addToCart(shoppingCart);
     }
 
     @DeleteMapping("/remove/{itemId}")

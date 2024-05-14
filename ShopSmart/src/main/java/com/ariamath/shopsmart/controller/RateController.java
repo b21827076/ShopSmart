@@ -1,5 +1,6 @@
 package com.ariamath.shopsmart.controller;
 
+import com.ariamath.shopsmart.entity.Rate;
 import com.ariamath.shopsmart.request.ProductCreateRequest;
 import com.ariamath.shopsmart.request.ProductUpdateRequest;
 import com.ariamath.shopsmart.request.RateCreateRequest;
@@ -25,9 +26,9 @@ public class RateController {
         this.rateService = rateService;
     }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<RateResponse> getRateByProductId(@PathVariable Long productId){
-        return new ResponseEntity<>(rateService.getRateByProductId(productId), HttpStatus.OK);
+    @GetMapping("/{rateId}")
+    public ResponseEntity<Rate> getRateByRateId(@PathVariable Long rateId){
+        return new ResponseEntity<>(rateService.getRateByRatetId(rateId), HttpStatus.OK);
     }
 
     @PostMapping()
@@ -35,9 +36,9 @@ public class RateController {
         rateService.createNewRate(newRateCreateRequest);
     }
 
-    @PutMapping("/{productId}")
-    public void updateRate(@PathVariable Long productId, @RequestBody RateUpdateRequest rateUpdateRequest) {
-        rateService.updateRateByProductId(productId, rateUpdateRequest);
+    @PutMapping("/{rateId}")
+    public void updateRate(@PathVariable Long rateId,@RequestBody RateUpdateRequest rateUpdateRequest) {
+        rateService.updateRateByProductId(rateId, rateUpdateRequest);
     }
 
     @DeleteMapping("/{productId}")

@@ -1,5 +1,7 @@
 package com.ariamath.shopsmart.controller;
 import com.ariamath.shopsmart.entity.User;
+import com.ariamath.shopsmart.request.ChangePasswordRequest;
+import com.ariamath.shopsmart.request.ForgottenPasswordRequest;
 import com.ariamath.shopsmart.request.UserUpdateRequest;
 import com.ariamath.shopsmart.service.StartupService;
 import com.ariamath.shopsmart.service.UserService;
@@ -17,12 +19,12 @@ public class UserController {
     private UserService userService;
     private StartupService startupService;
 
-    @GetMapping("{userID}")
+    @GetMapping("/{userID}")
     public ResponseEntity<User> getUserByID(@PathVariable Long userID) {
         return new ResponseEntity<>(startupService.getUser(userID), HttpStatus.OK);
     }
 
-    @GetMapping("username/{username}")
+    @GetMapping("/username/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
         return new ResponseEntity<>(startupService.getUser(username), HttpStatus.OK);
     }
@@ -36,4 +38,17 @@ public class UserController {
     public void updateUserByUserId(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest){
         userService.updateUserByUserId(userId, userUpdateRequest);
     }
+
+    @PutMapping("/changepassword")
+    public ResponseEntity changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
+        userService.changePassword(changePasswordRequest);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgottenPasswordRequest forgottenPasswordRequest){
+        String password = userService.forgotPassword(forgottenPasswordRequest);
+        return new ResponseEntity<>(password,HttpStatus.OK);
+    }
+
 }

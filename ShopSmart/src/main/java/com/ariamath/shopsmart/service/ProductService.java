@@ -195,6 +195,10 @@ public class ProductService {
 		return response;
 	}
 
+	public void saveProduct(Product product){
+		productRepository.save(product);
+	}
+
     public List<Product> searchProduct(String keyword) {
 		return productRepository.findByName(keyword);
 	}

@@ -22,11 +22,11 @@ public class StartupService {
     private final ProfileRepository profileRepository ;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public User getUser(String username) {
+    public User getUserByUsername(String username) {
         return userRepository.findByUserName(username);
     }
 
-    public User getUser(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow();
     }
     /*

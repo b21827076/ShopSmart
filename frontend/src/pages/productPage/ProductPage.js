@@ -12,9 +12,11 @@ const ProductPage = (props) => {
   const [productDetails, setProductDetails] = useState(null); // Ürün detayları için state
   const token = sessionStorage.getItem("token"); // Token'ı sessionStorage'dan al
   const username = sessionStorage.getItem("username");
-  const [userId, setUserId] = useState();
-  console.log("username: ", username);
-  console.log("userId: ", userId);
+  const [user, setUser] = useState();
+  const [comments, setComments] = useState([]);
+  console.log("productId: ", productId);
+  console.log("comments: ", comments);
+
 
 
 
@@ -28,13 +30,13 @@ const ProductPage = (props) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/profile/${username.toString()}`, opts)
+    fetch(`http://localhost:8080/api/user/username/${username.toString()}`, opts)
         .then((res) => {
           console.log("res: ",res);
           return res.json();
         })
         .then((data) => {
-          setUserId(data.user.id);
+          setUser(data);
           console.log("data: ", data);
           return data;
         })
@@ -42,6 +44,39 @@ const ProductPage = (props) => {
           console.error("There's an error", error);
         });
   }, [username]);
+
+
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const token = sessionStorage.getItem("token");
+      const opts = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      try {
+        const response = await fetch(`http://localhost:8080/api/comments?productId=${productId}`, opts);
+        const data = await response.json();
+        if (response.ok) {
+          setComments(data); // State'i güncelle
+          console.log("Comments:", data);
+        } else {
+          console.error('Failed to fetch comments');
+        }
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    if (productId) {
+      fetchComments();
+    }
+  }, [productId]);
+
 
 
 
@@ -63,11 +98,7 @@ const ProductPage = (props) => {
   }, [productId]);
 
 
-  const commentData = {
-    username: 'User123',
-    timestamp: '1 hour ago',
-    text: 'This is a static comment for testing purposes.',
-  };
+
 
   return (
     <>
@@ -83,14 +114,17 @@ const ProductPage = (props) => {
           <p>Stock: {productDetails?.stock}</p>
           <p>Merchant: {productDetails?.user.user_name}</p>
 
-          <CommentInput productId={productId} userId={userId} onCommentSubmit={(comment) => console.log(comment)} />
-          <Comment
-              username={commentData.username}
-              timestamp={commentData.timestamp}
-              text={commentData.text}
-          />
-          {/* <Comment /> */}
-          {/* Burada diğer ürün detaylarına yer verebilirsiniz */}
+          <CommentInput productId={productId} user={user} onCommentSubmit={(comment) => console.log(comment)} />
+
+          {comments.map((commentData) => (
+              <Comment
+                  key={commentData.id} // Her yorum için benzersiz bir key gereklidir
+                  username={commentData.userName}
+                  //timestamp={commentData.timestamp}
+                  text={commentData.text}
+              />
+          ))}
+
         </div>
       </div>
     </>

@@ -11,20 +11,22 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/user") //localhost::api/user
-@RequiredArgsConstructor
-@AllArgsConstructor
+
 public class UserController {
     private UserService userService;
-    private StartupService startupService;
 
-    @GetMapping("{userID}")
-    public ResponseEntity<User> getUserByID(@PathVariable Long userID) {
-        return new ResponseEntity<>(startupService.getUser(userID), HttpStatus.OK);
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("username/{username}")
+    @GetMapping("/{userID}")
+    public ResponseEntity<User> getUserByID(@PathVariable Long userID) {
+        return new ResponseEntity<>(userService.getOneUserById(userID), HttpStatus.OK);
+    }
+
+    @GetMapping("/username/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        return new ResponseEntity<>(startupService.getUser(username), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getOneUserByUserName(username), HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")

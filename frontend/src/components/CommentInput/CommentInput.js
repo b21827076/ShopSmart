@@ -2,14 +2,13 @@
 import React, {useEffect, useState} from 'react';
 import './CommentInput.css'; // Bu CSS dosyasını aşağıda oluşturacağız.
 
-const CommentInput = ({productId, userId, onCommentSubmit }) => {
+const CommentInput = ({productId, user, onCommentSubmit }) => {
     const [comment, setComment] = useState('');
     const token = sessionStorage.getItem("token");
     const username = sessionStorage.getItem("username");
+    console.log("user:", user)
     console.log("productId: ", productId)
-    console.log("userId: ", userId)
     console.log("comment: ", comment)
-    console.log("onCommentSubmit: ", onCommentSubmit)
 
 
 
@@ -26,7 +25,7 @@ const CommentInput = ({productId, userId, onCommentSubmit }) => {
                 },
                 body: JSON.stringify({
                     productId: productId,
-                    userId: userId,
+                    userId: user.id,
                     text: comment }),
             });
             if (response.ok) {

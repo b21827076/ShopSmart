@@ -47,14 +47,13 @@ const Products = (props) => {
         <Grid>
           {products.map(product => (
             <ProductItem
-
               key={product.id}
               productId={product.id}
               name={product.productName}
               imageUrl={product.imageUrl}
               description={product.description}
-              //likeCount={product.likeCount}
-
+              likeCount={product.likeCount}
+              commentCount={product.commentCount}
             />
           ))}
         </Grid>

@@ -31,57 +31,7 @@ const ManageProducts = () => {
     setShowAddProductForm(true);
   };
 
-
-
-
-
-
-
-
-
   console.log("user role: ", role)
-
-
-
-
-  // Function to handle saving the edited product
-  const handleSaveEdit = async (e, productId) => {
-    e.preventDefault();
-
-    // Assuming you have state hooks for each input field
-    const updatedProduct = {
-      id: productId,
-      img_url, // from state
-      name, // from state
-      description, // from state
-      price, // from state
-      stock, // from state
-    };
-
-    const opts = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        // Include other headers such as Authorization if needed
-      },
-      body: JSON.stringify(updatedProduct),
-    };
-
-    try {
-      const response = await fetch(`http://localhost:8080/api/product/${productId}`, opts);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('Updated product:', data);
-
-      // You might want to refresh the list of products or update the state
-      setProducts(products.map(product => (product.id === productId ? data : product)));
-      setEditingProduct(null); // Hide the edit form after successful update
-    } catch (error) {
-      console.error('Error updating product:', error);
-    }
-  };
 
   const opts = {
     method: "GET",
@@ -96,10 +46,10 @@ const ManageProducts = () => {
   useEffect(() => {
     const fetchProductsFromDatabase = async () => {
       let url = 'http://localhost:8080/api/product';
-      const userRole = sessionStorage.getItem("role"); // Or however you retrieve the user role
+      const userRole = sessionStorage.getItem("user_role"); // Or however you retrieve the user role
 
       // If the user is a merchant, modify the URL to fetch only their products
-      if (userRole === 'merchant') {
+      if (userRole === 'Merchant') {
         const userId = sessionStorage.getItem("user_id"); // Assuming you store user ID in session storage
         url += `?merchantId=${userId}`; // Adjust the URL according to your API's requirements
       }
@@ -137,21 +87,19 @@ const ManageProducts = () => {
 
               </tr>
             </thead>
+            {/* Ürün listesini sıralayıp render etme */}
             <tbody>
-
-              {products.map(product => (
-                  <>
-                    <tr key = {product.id}>
+            {products
+                .slice() // Ürünlerin orijinal dizisini değiştirmemek için kopya çalışma
+                .sort((a, b) => a.id - b.id) // Ürünleri id'ye göre sırala
+                .filter(product => role !== 'Merchant' || product.user.user_name === username)
+                .map(product => (
+                    <tr key={product.id}>
                       <ProductListItem
                           product={product}
-
-                          //onProductUpdate={handleProductUpdate}
                       />
                     </tr>
-
-
-                  </>
-              ))}
+                ))}
             </tbody>
           </table>
         </main>

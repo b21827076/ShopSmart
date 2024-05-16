@@ -41,8 +41,9 @@ public class ProductController {
 	}
 
 	@PutMapping("/{productId}")
-	public void updateOneProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequest updateProduct) {
+	public ResponseEntity updateOneProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequest updateProduct) {
 		productService.updateOneProductById(productId, updateProduct);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{productId}")

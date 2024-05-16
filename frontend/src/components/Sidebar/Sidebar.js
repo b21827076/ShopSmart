@@ -159,20 +159,20 @@ const Sidebar = () => {
             <li
               className="sidebarListItem"
               onClick={() => {
-                redirectTo("/manage-products");
+                redirectTo("/manageProducts");
                 window.scrollTo(0, 0);
               }}
             >
               <AddTask
                 className={
-                  history.location.pathname === "/manage-products"
+                  history.location.pathname === "/manageProducts"
                     ? "sidebarIcon selectedIcon"
                     : "sidebarIcon"
                 }
               />
               <span
                 className={
-                  history.location.pathname === "/manage-products"
+                  history.location.pathname === "/manageProducts"
                     ? "sidebarListItemText selectedIcon"
                     : "sidebarIcon"
                 }

@@ -131,8 +131,6 @@ public class ProductService {
 				log.info("Product Bulunamadı");
 			} else if (user == null) {
 				log.info("User Bulunamadı");
-			} else if (!Objects.equals(user.getRole_name(),"Merchant")) {
-				log.info("User'ın Merchant olması gerekmektedir");
 			} else if (subCategory == null) {
 				log.info("Mevcut bir subcategory ile değiştirebilirsin!");
 			} else {

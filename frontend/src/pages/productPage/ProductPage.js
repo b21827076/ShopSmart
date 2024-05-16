@@ -119,7 +119,9 @@ const ProductPage = (props) => {
           {comments.map((commentData) => (
               <Comment
                   key={commentData.id} // Her yorum için benzersiz bir key gereklidir
+                  id={commentData.id}
                   username={commentData.userName}
+                  currentUsername = {username}
                   //timestamp={commentData.timestamp}
                   text={commentData.text}
               />

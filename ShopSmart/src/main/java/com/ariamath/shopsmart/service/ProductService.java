@@ -105,9 +105,7 @@ public class ProductService {
 		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("Merchant"))){
 		Product product = productRepository.getById(productId);
 		SubCategory subCategory = subcategoryService.getOneSubCategoryByTitle(updateProduct.getSubcategory_name());
-		if(product==null){
-			log.info("Product Bulunamadı");
-		} else if (!Objects.equals(product.getUser().getUser_name(), updateProduct.getUser_name())){
+		if (!Objects.equals(product.getUser().getUser_name(), updateProduct.getUser_name())){
 			log.info("Sadece kendi urunlerini değiştirebilirsin!");
 		} else if (subCategory == null) {
 			log.info("Mevcut bir subcategory ile değiştirebilirsin!");
@@ -123,13 +121,12 @@ public class ProductService {
 			productRepository.save(product);
 			log.info("Merchant tarafından urun değiştirilmiştir!");
 		}
-		} else if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("Admin"))) {
+		}
+		else if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("Admin"))) {
 			Product product = productRepository.getById(productId);
 			User user = userService.getOneUserByUserName(updateProduct.getUser_name());
 			SubCategory subCategory = subcategoryService.getOneSubCategoryByTitle(updateProduct.getSubcategory_name());
-			if(product==null) {
-				log.info("Product Bulunamadı");
-			} else if (user == null) {
+			if (user == null) {
 				log.info("User Bulunamadı");
 			} else if (subCategory == null) {
 				log.info("Mevcut bir subcategory ile değiştirebilirsin!");
@@ -146,7 +143,8 @@ public class ProductService {
 				productRepository.save(product);
 				log.info("Admin tarafından urun değiştirilmiştir!");
 			}
-		}else{
+		}
+		else{
 			log.info(new PermissionDenied(SecurityContextHolder.getContext().getAuthentication().getName()).getError());
 		}
 	}

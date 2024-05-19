@@ -1,14 +1,10 @@
 package com.ariamath.shopsmart.controller;
 
 import com.ariamath.shopsmart.entity.Rate;
-import com.ariamath.shopsmart.request.ProductCreateRequest;
-import com.ariamath.shopsmart.request.ProductUpdateRequest;
 import com.ariamath.shopsmart.request.RateCreateRequest;
 import com.ariamath.shopsmart.request.RateUpdateRequest;
-import com.ariamath.shopsmart.response.RateResponse;
 import com.ariamath.shopsmart.service.RateService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,12 +1,10 @@
 package com.ariamath.shopsmart.controller;
+import com.ariamath.shopsmart.entity.Purchase;
 import com.ariamath.shopsmart.entity.User;
 import com.ariamath.shopsmart.request.ChangePasswordRequest;
 import com.ariamath.shopsmart.request.ForgottenPasswordRequest;
 import com.ariamath.shopsmart.request.UserUpdateRequest;
-import com.ariamath.shopsmart.service.StartupService;
 import com.ariamath.shopsmart.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +42,9 @@ public class UserController {
     }
 
     @PutMapping("/changepassword")
-    public ResponseEntity changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
+    public ResponseEntity<HttpStatus> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
         userService.changePassword(changePasswordRequest);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/forgotpassword")
@@ -58,5 +56,11 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @GetMapping("/purchaseHistory/{userId}")
+    public ResponseEntity<List<Purchase>> getAllPurchaseHistory(@PathVariable Long userId ){
+        return new ResponseEntity<>(userService.getAllPurchasesById(userId),HttpStatus.OK);
+    }
+
 }
 

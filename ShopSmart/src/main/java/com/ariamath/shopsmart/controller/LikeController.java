@@ -5,13 +5,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 import com.ariamath.shopsmart.entity.Like;
-import com.ariamath.shopsmart.repository.ProductRepository;
-import com.ariamath.shopsmart.repository.UserRepository;
 import com.ariamath.shopsmart.request.LikeCreateRequest;
 import com.ariamath.shopsmart.response.LikeResponse;
 import com.ariamath.shopsmart.service.LikeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,17 +24,10 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(path = "/api/likes") //localhost::api/likes
 @RequiredArgsConstructor
 public class LikeController {
-	@Autowired
-	private LikeService likeService;
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private ProductRepository productRepository;
 
-	public LikeController(LikeService likeService, ProductRepository productRepository, UserRepository userRepository) {
+	private LikeService likeService;
+	public LikeController(LikeService likeService) {
 		this.likeService = likeService;
-		this.productRepository = productRepository;
-		this.userRepository = userRepository;
 	}
 
 	@GetMapping

@@ -1,10 +1,7 @@
 package com.ariamath.shopsmart.controller;
-
 import java.util.List;
-
 import com.ariamath.shopsmart.entity.Category;
 import com.ariamath.shopsmart.entity.SubCategory;
-import com.ariamath.shopsmart.response.CategoryResponse;
 import com.ariamath.shopsmart.service.CategoryService;
 import com.ariamath.shopsmart.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

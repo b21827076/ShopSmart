@@ -58,6 +58,7 @@ public class ShoppingCartService {
             Long i = alinacakProduct.getStock() - item.getStock();
             alinacakProduct.setStock(i);
             productService.saveProduct(alinacakProduct);
+            userService.addPurchase(item);
         }
         shoppingCartRepository.deleteAll(alinacaklar);
     }

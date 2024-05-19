@@ -1,22 +1,16 @@
 package com.ariamath.shopsmart.service;
-
 import com.ariamath.shopsmart.entity.Profile;
 import com.ariamath.shopsmart.repository.ProfileRepository;
 import com.ariamath.shopsmart.request.ProfileUpdateRequest;
-import com.ariamath.shopsmart.response.ProfileResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
-    private UserService userService;
     private ProfileRepository profileRepository;
 
-    public ProfileService(UserService userService, ProfileRepository profileRepository) {
-        this.userService = userService;
+    public ProfileService(ProfileRepository profileRepository) {
         this.profileRepository = profileRepository;
     }
 

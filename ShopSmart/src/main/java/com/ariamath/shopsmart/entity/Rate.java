@@ -4,6 +4,8 @@ import com.ariamath.shopsmart.request.RateCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,10 +23,12 @@ public class Rate {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable=false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable=false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
 

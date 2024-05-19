@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/user") //localhost::api/user
 
@@ -52,5 +54,9 @@ public class UserController {
         String password = userService.forgotPassword(forgottenPasswordRequest);
         return new ResponseEntity<>(password,HttpStatus.OK);
     }
-
+    @GetMapping()
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }
+

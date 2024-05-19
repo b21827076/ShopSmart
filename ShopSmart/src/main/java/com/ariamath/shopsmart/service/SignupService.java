@@ -27,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -66,10 +67,6 @@ public class SignupService {
         return pendingUserRepository.save(pendingUser);
     }
 
-    /*
-    Called by the Admin. Moves the user from Pending table to AppUserTable.
-    delete -> save.
-     */
     public ResponseEntity<AuthResponse> approveUser(String user_name) {
 
         if(SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("Admin"))){
@@ -115,18 +112,13 @@ public class SignupService {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-/*
-    public void assignRoleToPendingUser(String user_name, String role_name) {
-        PendingUser pendingUser = pendingUserRepository.findPendingUserByUsername(user_name).orElseThrow();
-        Role role = roleRepository.findByName(role_name);
 
-        pendingUser.setRole_name(role.getName());
-
-    }
-*/
     public List<PendingUserResponse> getAllPendingUsers() {
-        return (List<PendingUserResponse>) pendingUserRepository.findAll()
-                .stream()
-                .map((user) -> new PendingUserResponse(user.getUser_name(), user.getEmail(), user.getRole_name()));
+        List<PendingUser> pu =  pendingUserRepository.findAll();
+        List<PendingUserResponse> puResponse = new ArrayList<>();
+        for(PendingUser i : pu){
+            puResponse.add(new PendingUserResponse(i));
+        }
+        return puResponse;
     }
 }

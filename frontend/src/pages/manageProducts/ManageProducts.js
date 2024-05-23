@@ -9,7 +9,7 @@ import ProductCreationItem from "../../components/ProductCreationItem/ProductCre
 
 
 const ManageProducts = () => {
-  // State hooks for managing products
+
   const [products, setProducts] = useState([]);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -26,7 +26,7 @@ const ManageProducts = () => {
   console.log("username: ", username)
 
 
-  // Function to show the add product form
+
   const handleAddProductClick = () => {
     setShowAddProductForm(true);
   };
@@ -37,7 +37,7 @@ const ManageProducts = () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // API için yetkilendirme header'ı
+      Authorization: `Bearer ${token}`,
     },
   };
 
@@ -46,12 +46,12 @@ const ManageProducts = () => {
   useEffect(() => {
     const fetchProductsFromDatabase = async () => {
       let url = 'http://localhost:8080/api/product';
-      const userRole = sessionStorage.getItem("user_role"); // Or however you retrieve the user role
+      const userRole = sessionStorage.getItem("user_role");
 
-      // If the user is a merchant, modify the URL to fetch only their products
+
       if (userRole === 'Merchant') {
-        const userId = sessionStorage.getItem("user_id"); // Assuming you store user ID in session storage
-        url += `?merchantId=${userId}`; // Adjust the URL according to your API's requirements
+        const userId = sessionStorage.getItem("user_id");
+        url += `?merchantId=${userId}`;
       }
 
       try {
@@ -78,7 +78,6 @@ const ManageProducts = () => {
         <Sidebar />
         <main className="manageProductsMain">
           <h1>Manage Products</h1>
-
           <button onClick={handleAddProductClick} className="addProductButton">Add New Product</button>
           {showAddProductForm && <ProductCreationItem userRole={role} username={username} onCancel={() => setShowAddProductForm(false)} />}
           <table className="manageProductsList">
@@ -87,10 +86,9 @@ const ManageProducts = () => {
 
               </tr>
             </thead>
-            {/* Ürün listesini sıralayıp render etme */}
             <tbody>
             {products
-                .slice() // Ürünlerin orijinal dizisini değiştirmemek için kopya çalışma
+                .slice()
                 .sort((a, b) => a.id - b.id) // Ürünleri id'ye göre sırala
                 .filter(product => role !== 'Merchant' || product.user.user_name === username)
                 .map(product => (

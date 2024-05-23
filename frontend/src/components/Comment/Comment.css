@@ -33,9 +33,9 @@
   margin-left: 5px;
 }
 
-/* Add additional styles for edit mode */
+
 .commentEditMode {
-  padding-bottom: 40px; /* Make space for action buttons */
+  padding-bottom: 40px;
 }
 
 .commentSaveButton,
@@ -64,7 +64,7 @@
   padding: 5px;
   border: 1px solid #c0c0c0;
   border-radius: 4px;
-  resize: vertical; /* Allow vertical resizing */
+  resize: vertical;
 }
 
 
@@ -75,5 +75,5 @@
   padding: 5px;
   border: 1px solid #c0c0c0;
   border-radius: 4px;
-  resize: vertical; /* Allow vertical resizing */
+  resize: vertical;
 }

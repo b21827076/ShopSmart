@@ -6,7 +6,7 @@ const ProductListItem = ({ product}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editableProduct, setEditableProduct] = useState({ ...product });
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -24,7 +24,7 @@ const ProductListItem = ({ product}) => {
 
             if (response.ok) {
                 console.log(`Product ${product.id} deleted successfully.`);
-                // Burada silme işlemi sonrası güncellemeler yapabilirsiniz (örneğin, ürün listesini yenilemek)
+
             } else {
                 console.error(`Failed to delete product ${product.id}.`);
             }
@@ -47,11 +47,12 @@ const ProductListItem = ({ product}) => {
         setEditableProduct({ ...product }); // Revert changes
     };
 
-    // Üst bileşende onProductUpdate fonksiyonunun tanımı
+
     const updateProduct = async (updatedProduct) => {
-        console.log('Updated product:', updatedProduct); // Print the updated product to the console
+        console.log('Updated product:', updatedProduct);
         console.log('Product ID:', product.id);
         console.log("imageURL: ", updatedProduct.img_url)
+        console.log("token: ", token)
 
         try {
             const response = await fetch(`http://localhost:8080/api/product/${product.id}`, {
@@ -76,7 +77,7 @@ const ProductListItem = ({ product}) => {
                 throw new Error('Product update failed');
             }
 
-            // Başarılı güncelleme sonrası istediğiniz işlemler (state güncelleme vb.)
+
             console.log('Product updated successfully');
         } catch (error) {
             console.error(error);

@@ -9,15 +9,15 @@ import "./Products.css";
 
 // socialPlatform-main/frontend/src/pages/products/Products.js
 const Products = (props) => {
-    const { categoryId, subcategoryId } = useParams(); // URL'den categoryId ve subcategoryId parametrelerini al
-    const [products, setProducts] = useState([]); // Ürünler için state
-    const token = sessionStorage.getItem("token"); // Token'ı sessionStorage'dan al
+    const { categoryId, subcategoryId } = useParams();
+    const [products, setProducts] = useState([]);
+    const token = sessionStorage.getItem("token");
 
     const opts = {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // API için yetkilendirme header'ı
+            Authorization: `Bearer ${token}`,
         },
     };
 

@@ -12,12 +12,12 @@ const Comment = ({ id ,username, currentUsername, text}) => {
 
     const handleDelete = () => {
         if(window.confirm('Are you sure you want to delete this comment?')) {
-            const token = sessionStorage.getItem('token'); // Eğer auth gerekiyorsa
+            const token = sessionStorage.getItem('token');
             fetch(`http://localhost:8080/api/comments/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Authorization header'ı ekleyin eğer auth gerekiyorsa
+
                     'Authorization': `Bearer ${token}`,
                 }
             })
@@ -25,7 +25,7 @@ const Comment = ({ id ,username, currentUsername, text}) => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    // Burada yorum listesini yenilemek veya kullanıcıya bir geri bildirim sağlamak için bir şeyler yapabilirsiniz.
+
                     console.log('Comment deleted successfully');
                 })
                 .catch(error => console.error('There has been a problem with your fetch operation:', error));
@@ -54,7 +54,7 @@ const Comment = ({ id ,username, currentUsername, text}) => {
                     throw new Error('Save failed');
                 }
                 setIsEditing(false); // Exit editing mode
-                // You might still want to update the local state to the new text
+
             })
             .catch(error => {
                 console.error('Save error:', error);
@@ -62,7 +62,7 @@ const Comment = ({ id ,username, currentUsername, text}) => {
     };
 
     const handleCancel = () => {
-        setEditedText(text); // Reset the edited text to the original text
+        setEditedText(text);
         setIsEditing(false);
     };
 

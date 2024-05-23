@@ -1,40 +1,40 @@
-/* Ana konteyneri ve içeriği ortalayın */
+
 .productPageContainer {
   display: flex;
-  justify-content: center; /* İçeriği yatay olarak ortalayın */
-  align-items: flex-start; /* İçeriği dikey olarak üst kenara hizalayın */
+  justify-content: center;
+  align-items: flex-start;
   
 }
 
 
-/* Ürün detayları için stil */
+
 .productDetails {
-  flex-grow: 1; /* Kalan boşluğu doldurur, sidebar genişliği hariç */
-  padding: 20px; /* İçeriği etrafındaki boşluk */
-  max-width: 800px; /* Maksimum genişlik, isteğe bağlı */
-  /* Gerekirse ek stil özellikleri ekleyin */
+  flex-grow: 1;
+  padding: 20px;
+  max-width: 800px;
+
 }
 
-/* Ürün başlığı için stil */
+
 .productDetails h1 {
-  font-size: 2em; /* Başlık boyutunu büyüt */
-  margin-bottom: 1em; /* Başlık altındaki boşluk */
-  color: #333; /* Başlık rengi */
+  font-size: 2em;
+  margin-bottom: 1em;
+  color: #333;
 }
 
-/* Ürün resmi için stil */
+
 .productDetails img {
-  width: 100%; /* Ürün resmini genişliğe göre sığdır */
-  max-width: 500px; /* Resmin maksimum genişliği */
-  height: auto; /* Resmin yüksekliğini otomatik ayarla */
-  margin-bottom: 1em; /* Resim altındaki boşluk */
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin-bottom: 1em;
   border: 5px solid #c0c0c0;
   border-radius: 10px;
 }
 
-/* Ürün açıklaması için stil */
+
 .productDetails p {
-  font-size: 1.2em; /* Açıklama metni boyutunu büyüt */
-  color: #666; /* Açıklama metni rengi */
-  line-height: 1.6; /* Satır yüksekliği */
+  font-size: 1.2em;
+  color: #666;
+  line-height: 1.6;
 }

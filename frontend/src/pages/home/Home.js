@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar"; 
-//import Feed from "../../components/Feed/Feed";
-import Rightbar from "../../components/Rightbar/Rightbar";
-import AlertSnackbar from "../../components/Snackbar/AlertSnackbar";
+
+
 import "./Home.css";
 
 const Home = (props) => {
@@ -14,14 +13,10 @@ const Home = (props) => {
   return (
     <>
       <Navbar setSearched={props.setSearched} setKeyword={props.setKeyword} />
-      {/*<AlertSnackbar
-        isNotify={props.isNotify}
-        setIsNotify={props.setIsNotify}
-        messageSender={props.messageSender}
-      /> */}
+
       <div className="homeContainer">
         <Sidebar />
-        {/* <Rightbar followPing={followPing} /> */}
+
       </div>
     </>
   );

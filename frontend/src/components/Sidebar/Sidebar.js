@@ -9,7 +9,6 @@ import {
   Categories,
   ManageProducts
 } from "@mui/icons-material";
-import Footer from "../Footer/Footer";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
@@ -203,7 +202,6 @@ const Sidebar = () => {
             <span className="sidebarListItemText">Log Out</span>
           </li>
         </ul>
-        <Footer />
       </div>
     </div>
   );

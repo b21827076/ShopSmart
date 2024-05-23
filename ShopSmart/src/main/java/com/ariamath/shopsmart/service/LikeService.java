@@ -1,11 +1,8 @@
 package com.ariamath.shopsmart.service;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import com.ariamath.shopsmart.entity.Like;
 import com.ariamath.shopsmart.entity.Product;
 import com.ariamath.shopsmart.entity.User;
@@ -58,11 +55,7 @@ public class LikeService{
 	public LikeResponse getOneLikeById(Long likeId) {
 		return new LikeResponse(Objects.requireNonNull(likeRepository.findById(likeId).orElse(null)));
 	}
-/*
-	public List<LikeResponse> getLikesByProductId(Long productId){
-		return likeRepository.getLikesByProductId(productId).stream().map(LikeResponse::new).collect(Collectors.toList());
-	}
- */
+
 	public List<Like> getLikesByUserId(Long userId) {
 		return likeRepository.getLikesByUserId(userId);
 	}

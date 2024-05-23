@@ -3,7 +3,6 @@ package com.ariamath.shopsmart.controller;
 import com.ariamath.shopsmart.entity.PendingUser;
 import com.ariamath.shopsmart.entity.RefreshToken;
 import com.ariamath.shopsmart.entity.User;
-import com.ariamath.shopsmart.repository.UserRepository;
 import com.ariamath.shopsmart.request.ApproveUserRequest;
 import com.ariamath.shopsmart.request.LoginRequest;
 import com.ariamath.shopsmart.request.PendingUserRequest;
@@ -17,15 +16,12 @@ import com.ariamath.shopsmart.service.SignupService;
 import com.ariamath.shopsmart.service.UserDetailsServiceImpl;
 import com.ariamath.shopsmart.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +31,6 @@ import java.util.List;
 @RequestMapping("/api/auth")
 @Slf4j
 public class AuthController {
-    private UserRepository userRepository;
     private UserDetailsServiceImpl userDetailsService;
     private SignupService signupService;
     private AuthenticationManager authenticationManager;
@@ -44,19 +39,15 @@ public class AuthController {
 
     private UserService userService;
 
-    private PasswordEncoder passwordEncoder;
-
     private RefreshTokenService refreshTokenService;
 
-    public AuthController(AuthenticationManager authenticationManager, SignupService signupService,UserRepository userRepository,UserDetailsServiceImpl userDetailsService,
-                          UserService userService, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, RefreshTokenService refreshTokenService) {
+    public AuthController(AuthenticationManager authenticationManager, SignupService signupService,UserDetailsServiceImpl userDetailsService,
+                          UserService userService, JwtTokenProvider jwtTokenProvider, RefreshTokenService refreshTokenService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.refreshTokenService = refreshTokenService;
         this.signupService = signupService;
-        this.userRepository = userRepository;
         this.userDetailsService = userDetailsService;
     }
 

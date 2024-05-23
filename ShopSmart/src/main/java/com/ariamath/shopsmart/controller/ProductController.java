@@ -4,7 +4,6 @@ import com.ariamath.shopsmart.request.ProductCreateRequest;
 import com.ariamath.shopsmart.request.ProductUpdateRequest;
 import com.ariamath.shopsmart.service.ProductService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +40,9 @@ public class ProductController {
 	}
 
 	@PutMapping("/{productId}")
-	public void updateOneProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequest updateProduct) {
+	public ResponseEntity<HttpStatus> updateOneProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequest updateProduct) {
 		productService.updateOneProductById(productId, updateProduct);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{productId}")

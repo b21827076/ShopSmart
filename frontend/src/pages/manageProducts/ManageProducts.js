@@ -9,7 +9,7 @@ import ProductCreationItem from "../../components/ProductCreationItem/ProductCre
 
 
 const ManageProducts = () => {
-  // State hooks for managing products
+
   const [products, setProducts] = useState([]);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -26,61 +26,22 @@ const ManageProducts = () => {
   console.log("username: ", username)
 
 
-  // Function to show the add product form
+
   const handleAddProductClick = () => {
     setShowAddProductForm(true);
   };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6a5ea8500265e8e4dc09338fdf3629629fb894ce
   console.log("user role: ", role)
-
-
-
-
-  // Function to handle saving the edited product
-  const handleSaveEdit = async (e, productId) => {
-    e.preventDefault();
-
-    // Assuming you have state hooks for each input field
-    const updatedProduct = {
-      id: productId,
-      img_url, // from state
-      name, // from state
-      description, // from state
-      price, // from state
-      stock, // from state
-    };
-
-    const opts = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        // Include other headers such as Authorization if needed
-      },
-      body: JSON.stringify(updatedProduct),
-    };
-
-    try {
-      const response = await fetch(`http://localhost:8080/api/product/${productId}`, opts);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('Updated product:', data);
-
-      // You might want to refresh the list of products or update the state
-      setProducts(products.map(product => (product.id === productId ? data : product)));
-      setEditingProduct(null); // Hide the edit form after successful update
-    } catch (error) {
-      console.error('Error updating product:', error);
-    }
-  };
 
   const opts = {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // API için yetkilendirme header'ı
+      Authorization: `Bearer ${token}`,
     },
   };
 
@@ -89,12 +50,12 @@ const ManageProducts = () => {
   useEffect(() => {
     const fetchProductsFromDatabase = async () => {
       let url = 'http://localhost:8080/api/product';
-      const userRole = sessionStorage.getItem("role"); // Or however you retrieve the user role
+      const userRole = sessionStorage.getItem("user_role");
 
-      // If the user is a merchant, modify the URL to fetch only their products
-      if (userRole === 'merchant') {
-        const userId = sessionStorage.getItem("user_id"); // Assuming you store user ID in session storage
-        url += `?merchantId=${userId}`; // Adjust the URL according to your API's requirements
+
+      if (userRole === 'Merchant') {
+        const userId = sessionStorage.getItem("user_id");
+        url += `?merchantId=${userId}`;
       }
 
       try {
@@ -121,7 +82,6 @@ const ManageProducts = () => {
         <Sidebar />
         <main className="manageProductsMain">
           <h1>Manage Products</h1>
-
           <button onClick={handleAddProductClick} className="addProductButton">Add New Product</button>
           {showAddProductForm && <ProductCreationItem userRole={role} username={username} onCancel={() => setShowAddProductForm(false)} />}
           <table className="manageProductsList">
@@ -131,20 +91,17 @@ const ManageProducts = () => {
               </tr>
             </thead>
             <tbody>
-
-              {products.map(product => (
-                  <>
-                    <tr key = {product.id}>
+            {products
+                .slice()
+                .sort((a, b) => a.id - b.id) // Ürünleri id'ye göre sırala
+                .filter(product => role !== 'Merchant' || product.user.user_name === username)
+                .map(product => (
+                    <tr key={product.id}>
                       <ProductListItem
                           product={product}
-
-                          //onProductUpdate={handleProductUpdate}
                       />
                     </tr>
-
-
-                  </>
-              ))}
+                ))}
             </tbody>
           </table>
         </main>

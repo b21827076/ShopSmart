@@ -83,7 +83,7 @@ public class CommentService{
 		}
 	}
 
-	public ResponseEntity updateOneCommentById(CommentUpdateRequest request) {
+	public ResponseEntity<HttpStatus> updateOneCommentById(CommentUpdateRequest request) {
 		Optional<Comment> comment = commentRepository.findById(request.getId());
 		if(comment.isPresent()) {
 			Comment commentToUpdate = comment.get();
@@ -91,15 +91,15 @@ public class CommentService{
 			commentToUpdate.setModifiedDate(new Date());
 			commentRepository.save(commentToUpdate);
 			log.info("Yorum update edildi");
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}else
 			log.info("Product bulunamadı");
-			return new ResponseEntity(HttpStatus.BAD_GATEWAY);
+			return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
 	}
 
-	public ResponseEntity deleteOneCommentById(Long commentId) {
+	public ResponseEntity<HttpStatus> deleteOneCommentById(Long commentId) {
 		commentRepository.deleteById(commentId);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
     public Long getCommentCountByProductId(Long id) {

@@ -7,15 +7,15 @@ import { useParams } from 'react-router-dom';
 import "./Subcategories.css";
 
 const Subcategories = (props) => {
-    const { categoryId } = useParams(); // URL'den categoryId parametresini al
-    const [subcategories, setSubcategories] = useState([]); // Alt kategoriler için state
-    const token = sessionStorage.getItem("token"); // Token'ı sessionStorage'dan al
+    const { categoryId } = useParams();
+    const [subcategories, setSubcategories] = useState([]);
+    const token = sessionStorage.getItem("token");
 
     const opts = {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // API için yetkilendirme header'ı
+            Authorization: `Bearer ${token}`,
         },
     };
 

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import './ProductCreationItem.css';
 
-const ProductCreationItem = ({userRole, username, props}) => {
+const ProductCreationItem = ({userRole, username, onCancel}) => {
     console.log("username: ", username)
     console.log("userRole: ", userRole)
 
@@ -34,7 +34,7 @@ const ProductCreationItem = ({userRole, username, props}) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Token burada oturum açmış kullanıcıdan alınabilir
+
                     Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
@@ -49,7 +49,7 @@ const ProductCreationItem = ({userRole, username, props}) => {
             });
 
             if (response.ok) {
-                // Ürün başarıyla oluşturuldu, formu temizle veya başka bir işlem yap
+
                 setProduct({
                     photolink: '',
                     title: '',
@@ -59,19 +59,20 @@ const ProductCreationItem = ({userRole, username, props}) => {
                     price: '',
                     subcategory: ''
                 });
-                // Ürün listesini güncelleyin veya kullanıcıyı başka bir sayfaya yönlendirin
+
             } else {
-                // Sunucu hatası durumunda hata mesajı göster
+
                 console.error('Failed to create product');
             }
         } catch (error) {
-            // İstek sırasında bir hata oluşursa, hata mesajı göster
+
             console.error('Error creating product:', error);
         }
     };
 
-    const handleCancel = () => {
 
+
+    const handleCancel = () => {
         setProduct({
             photolink: '',
             title: '',
@@ -82,9 +83,7 @@ const ProductCreationItem = ({userRole, username, props}) => {
             subcategory: ''
         });
 
-        props.onCancel && props.onCancel();
-
-
+        onCancel();
     };
 
 
@@ -141,7 +140,7 @@ const ProductCreationItem = ({userRole, username, props}) => {
                     name="user_name"
                     value={product.user_name}
                     onChange={handleChange}
-                    readOnly={userRole !== 'Admin'} // Eğer kullanıcı rolü admin değilse input readonly olacak
+                    readOnly={userRole !== 'Admin'}
                     required
                 />
             </div>

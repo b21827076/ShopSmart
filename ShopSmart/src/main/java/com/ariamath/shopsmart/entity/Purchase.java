@@ -1,25 +1,23 @@
 package com.ariamath.shopsmart.entity;
 
-import com.ariamath.shopsmart.request.RateCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Data
 @Entity
-@Table(name = "rate",schema = "public")
-@NoArgsConstructor
-public class Rate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Table(name = "purchase",schema = "public")
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class Purchase {
 
-    private Long rate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable=false)
@@ -30,12 +28,13 @@ public class Rate {
     @JoinColumn(name = "product_id", nullable=false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
+    private Long stock;
+    private Long price;
 
-
-    public Rate(Long rate, Product product, User user) {
-        this.rate = rate;
-        this.product = product;
-        this.user = user;
+    public Purchase(ShoppingCart shoppingCart) {
+        this.user = shoppingCart.getUser();
+        this.price = shoppingCart.getPrice();
+        this.product = shoppingCart.getProduct();
+        this.stock = shoppingCart.getStock();
     }
-
 }

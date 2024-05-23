@@ -62,7 +62,7 @@ const ProductPage = (props) => {
         const response = await fetch(`http://localhost:8080/api/comments?productId=${productId}`, opts);
         const data = await response.json();
         if (response.ok) {
-          setComments(data); // State'i güncelle
+          setComments(data);
           console.log("Comments:", data);
         } else {
           console.error('Failed to fetch comments');
@@ -118,8 +118,10 @@ const ProductPage = (props) => {
 
           {comments.map((commentData) => (
               <Comment
-                  key={commentData.id} // Her yorum için benzersiz bir key gereklidir
+                  key={commentData.id}
+                  id={commentData.id}
                   username={commentData.userName}
+                  currentUsername = {username}
                   //timestamp={commentData.timestamp}
                   text={commentData.text}
               />

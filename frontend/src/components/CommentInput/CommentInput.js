@@ -29,11 +29,11 @@ const CommentInput = ({productId, user, onCommentSubmit }) => {
                     text: comment }),
             });
             if (response.ok) {
-                // Yorum başarıyla gönderildi, formu temizle
+
                 setComment('');
-                // Yorumlar listesini güncellemek için burada bir şeyler yapabilirsiniz.
+
             } else {
-                // Sunucu bir hata döndü
+
                 console.error('Failed to post comment');
             }
         } catch (error) {

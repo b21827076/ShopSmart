@@ -1,5 +1,4 @@
 package com.ariamath.shopsmart.controller;
-
 import com.ariamath.shopsmart.entity.Profile;
 import com.ariamath.shopsmart.request.ProfileUpdateRequest;
 import com.ariamath.shopsmart.service.ProfileService;

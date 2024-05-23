@@ -7,7 +7,6 @@ const SubcategoryItem = ({ categoryId, subcategoryId, name, imageUrl }) => {
   const history = useHistory();
 
   const navigateToProducts = () => {
-    // Bu fonksiyon kullanıcıyı ilgili alt kategorideki ürünlerin listelendiği sayfaya yönlendirir.
     history.push(`/category/${categoryId}/subcategory/${subcategoryId}`);
   };
 

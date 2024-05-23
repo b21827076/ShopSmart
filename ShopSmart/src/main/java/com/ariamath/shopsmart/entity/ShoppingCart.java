@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -19,10 +21,12 @@ public class ShoppingCart {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable=false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable=false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
     private Long stock;
 

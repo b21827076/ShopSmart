@@ -8,26 +8,26 @@
     height: 150px;
     width: 150px;
     cursor: pointer;
-    border-radius: 15px; /* Köşeleri yumuşat */
+    border-radius: 15px;
     position: relative;
   }
   
   .subcategoryItemName {
-    position: absolute; /* İsim etiketini konumlandırmak için absolute kullanın */
+    position: absolute;
     width: 170px;
-    bottom: -40px; /* Kategori altındaki boşluk */
-    left: 50%; /* Merkezleme için */
-    transform: translateX(-50%); /* Düzgün merkezlemek için */
-    background-color: #ffffff; /* İsim etiketinin arka plan rengi */
-    padding: 5px 10px; /* İsim etiketinin padding'i */
-    border-radius: 5px; /* İsim etiketinin köşeleri yumuşat */
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
     border: 2px solid #c0c0c0;
-    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* İsim etiketine hafif bir gölge ekleyin */
+
   }
   
   .subcategoryItemImage {
-    width: 100%; /* Resmi kategori genişliğine sığdır */
-    height: auto; /* Yüksekliği orijinal en-boy oranını koruyacak şekilde ayarla */
-    border-radius: 15px; /* Resim köşelerini yumuşat */
-    object-fit: cover; /* Resmi çerçeveye sığdır ve gerekiyorsa kırp */
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
   }

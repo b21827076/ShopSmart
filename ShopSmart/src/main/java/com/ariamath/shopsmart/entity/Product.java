@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Data
 @Entity
@@ -43,6 +45,7 @@ public class Product {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User User;
 
 	private Double rate;

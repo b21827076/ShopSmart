@@ -1,51 +1,55 @@
 .productListItem {
     display: flex;
-    flex-direction: row;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ccc;
 }
 
 .productImageWrapper {
-    margin-right: 10px;
-
+    margin-right: 20px;
 }
 
 .productImage {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px; /* Resim kenarlarını yumuşat */
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
     object-fit: cover;
-    margin-right: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
-/* Tüm metinleri aynı boyutta yap */
-.productListItem p,
-.productListItem input,
-.productListItem textarea {
-    font-size: 16px; /* Varsayılan metin boyutunu belirle */
-    color: black; /* Varsayılan metin rengini belirle */
-    width: 120px; /* Her field için sabit genişlik */
-    margin-right: 10px; /* Field'lar arası boşluk */
-    text-align: left; /* Metni sola hizala */
-    text-align: center;
+.productInfo {
+    display: flex;
+    flex-direction: column;
 }
 
-.editableProductField {
-    padding: 5px;
-    border: 1px solid #ddd;
+.productId {
+    min-width: 70px;
+}
+
+.productMerchant,
+.productName,
+.productDescription,
+.productSubcategory,
+.productPrice,
+.productStock {
+    margin: 3px 0;
+    min-height: 20px;
+    min-width: 600px;
+    max-width: 600px;
+}
+
+.productActions button {
+    margin: 5px;
+    padding: 5px 10px;
+    border: none;
     border-radius: 4px;
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
 }
 
-/* Metin kutuları ve textarea için özel stiller,
-   yükseklikleri uygun hale getir */
-input.editableProductField {
-    height: 30px; /* Input yüksekliğini belirle */
+.productActions button:hover {
+    background-color: #449c44;
 }
-
-textarea.editableProductField {
-    height: 60px; /* Textarea yüksekliğini belirle */
-    resize: vertical;
-}
-
-/* Diğer stil detayları buraya eklenebilir */

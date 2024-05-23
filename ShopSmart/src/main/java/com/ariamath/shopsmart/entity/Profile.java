@@ -3,6 +3,8 @@ package com.ariamath.shopsmart.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -22,8 +24,8 @@ public class Profile {
     private String about;
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User User;
 
     public Profile(User user) {
@@ -34,15 +36,4 @@ public class Profile {
         this.User = user;
     }
 
-/*
-    @OneToMany(mappedBy = "rater")
-    @EqualsAndHashCode.Exclude
-    @JsonIgnore
-    private final Collection<Rating> ratedProfiles = new ArrayList<>();
-
-    @OneToMany(mappedBy = "ratee")
-    @EqualsAndHashCode.Exclude
-    @JsonIgnore
-    private final Collection<Rating> profileRatings = new ArrayList<>();
- */
 }

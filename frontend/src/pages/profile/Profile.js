@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Feed from "../../components/Feed/Feed";
-import Rightbar from "../../components/Rightbar/Rightbar";
 import Like from "../../components/Like/Like";
 import AlertSnackbar from "../../components/Snackbar/AlertSnackbar";
 
@@ -20,7 +18,7 @@ import { pink } from "@mui/material/colors";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import "./Profile.css";
 import RatingStars from "../../components/RatingStars/RatingStars";
-import Follow from "../../components/Follow/Follow";
+
 
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -383,11 +381,7 @@ const Profile = (props) => {
                 <h2 className="profileRate">{rating}</h2>
                 <h2 className="profileMaxRate">/5</h2>
               </div>
-              {!isOwnProfile && (
-                <div className="followArea" onClick={() => handleFollow()}>
-                  <Follow followed={followed} />
-                </div>
-              )}
+
               {user &&
                 (user.roles[0] === "ROLE_ADMIN" ||
                   user.roles[0] === "ROLE_ACADEMICIAN") && (
@@ -493,10 +487,6 @@ const Profile = (props) => {
             <div className="profileSidebar">
               <Sidebar />
             </div>
-            <div className="profileFeed">
-              <Feed type="profile" profilename={profilename}/>
-            </div>
-            <Rightbar profile profilename={profilename}/>
           </div>
         </div>
       </div>

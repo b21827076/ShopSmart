@@ -34,13 +34,13 @@
 
 .button-group {
     display: flex;
-    justify-content: space-between; /* Butonları yan yana koy */
-    gap: 10px; /* Butonlar arasında biraz boşluk bırak */
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .product-creation-submit,
 .product-creation-cancel {
-    flex: 1; /* Butonların eşit genişlikte olmasını sağla */
+    flex: 1;
     padding: 4px 4px;
     border: none;
     border-radius: 4px;

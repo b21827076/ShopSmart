@@ -9,7 +9,6 @@ import {
   Categories,
   ManageProducts
 } from "@mui/icons-material";
-import Footer from "../Footer/Footer";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
@@ -56,6 +55,10 @@ const Sidebar = () => {
             </span>
           </li>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6a5ea8500265e8e4dc09338fdf3629629fb894ce
           <li
             className="sidebarListItem"
             onClick={() => {
@@ -85,20 +88,20 @@ const Sidebar = () => {
             <li
               className="sidebarListItem"
               onClick={() => {
-                redirectTo("/manage-products");
+                redirectTo("/manageProducts");
                 window.scrollTo(0, 0);
               }}
             >
               <AddTask
                 className={
-                  history.location.pathname === "/manage-products"
+                  history.location.pathname === "/manageProducts"
                     ? "sidebarIcon selectedIcon"
                     : "sidebarIcon"
                 }
               />
               <span
                 className={
-                  history.location.pathname === "/manage-products"
+                  history.location.pathname === "/manageProducts"
                     ? "sidebarListItemText selectedIcon"
                     : "sidebarIcon"
                 }
@@ -202,7 +205,6 @@ const Sidebar = () => {
             <span className="sidebarListItemText">Log Out</span>
           </li>
         </ul>
-        <Footer />
       </div>
     </div>
   );

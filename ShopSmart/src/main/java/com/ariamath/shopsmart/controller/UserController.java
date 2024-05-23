@@ -1,19 +1,27 @@
 package com.ariamath.shopsmart.controller;
+<<<<<<< HEAD
 import com.ariamath.shopsmart.entity.PendingUser;
+=======
+import com.ariamath.shopsmart.entity.Purchase;
+>>>>>>> 6a5ea8500265e8e4dc09338fdf3629629fb894ce
 import com.ariamath.shopsmart.entity.User;
 import com.ariamath.shopsmart.request.ChangePasswordRequest;
 import com.ariamath.shopsmart.request.ForgottenPasswordRequest;
 import com.ariamath.shopsmart.request.UserUpdateRequest;
-import com.ariamath.shopsmart.service.StartupService;
 import com.ariamath.shopsmart.service.UserService;
+<<<<<<< HEAD
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+=======
+>>>>>>> 6a5ea8500265e8e4dc09338fdf3629629fb894ce
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/user") //localhost::api/user
@@ -53,15 +61,24 @@ public class UserController {
     }
 
     @PutMapping("/changepassword")
-    public ResponseEntity changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
+    public ResponseEntity<HttpStatus> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
         userService.changePassword(changePasswordRequest);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/forgotpassword")
     public ResponseEntity<String> forgotPassword(@RequestBody ForgottenPasswordRequest forgottenPasswordRequest){
         String password = userService.forgotPassword(forgottenPasswordRequest);
         return new ResponseEntity<>(password,HttpStatus.OK);
+    }
+    @GetMapping()
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/purchaseHistory/{userId}")
+    public ResponseEntity<List<Purchase>> getAllPurchaseHistory(@PathVariable Long userId ){
+        return new ResponseEntity<>(userService.getAllPurchasesById(userId),HttpStatus.OK);
     }
 
     @GetMapping()
@@ -75,3 +92,4 @@ public class UserController {
         return new ResponseEntity<>(pendingUsers, HttpStatus.OK);
     } */
 }
+

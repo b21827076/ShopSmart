@@ -1,166 +1,169 @@
+// frontend/src/components/ProductListItem/ProductListItem.js
 import React, { useState } from 'react';
 import './ProductListItem.css';
 
-const ProductListItem = ({ product, onProductUpdate }) => {
-    const [isEditing, setIsEditing] = useState({
-        name: false,
-        description: false,
-        price: false,
-        imageUrl: false,
-        stock: false,
-        merchantName: false
-    });
+const ProductListItem = ({ product}) => {
+    const [isEditing, setIsEditing] = useState(false);
     const [editableProduct, setEditableProduct] = useState({ ...product });
-    const token = sessionStorage.getItem("token");
 
-    const opts = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+    const token = sessionStorage.getItem('token');
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleDeleteClick = async () => {
+        if (window.confirm(`Are you sure you want to delete product ${product.id}?`)) {
+            const response = await fetch(`http://localhost:8080/api/product/${product.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                console.log(`Product ${product.id} deleted successfully.`);
+
+            } else {
+                console.error(`Failed to delete product ${product.id}.`);
+            }
         }
     };
 
-
-    const handleDoubleClick = (field) => {
-        setIsEditing({ ...isEditing, [field]: true });
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setEditableProduct({ ...editableProduct, [name]: value });
     };
 
-    const handleBlur = async (field) => {
-        setIsEditing({ ...isEditing, [field]: false });
-        console.log("editableProduct: ", editableProduct);
+    const handleSaveClick = async () => {
+        //onProductUpdate(editableProduct);
+        await updateProduct(editableProduct);
+        setIsEditing(false);
+    };
+
+    const handleCancelClick = () => {
+        setIsEditing(false);
+        setEditableProduct({ ...product }); // Revert changes
+    };
+
+
+    const updateProduct = async (updatedProduct) => {
+        console.log('Updated product:', updatedProduct);
+        console.log('Product ID:', product.id);
+        console.log("imageURL: ", updatedProduct.img_url)
+        console.log("token: ", token)
 
         try {
-            const response = await fetch(`http://localhost:8080/api/product/${editableProduct.id}`, {
+            const response = await fetch(`http://localhost:8080/api/product/${product.id}`, {
 
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Eğer auth gerekiyorsa
+                    'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(editableProduct)
+                body: JSON.stringify({
+                    name : updatedProduct.name,
+                    description : updatedProduct.description,
+                    price : updatedProduct.price,
+                    subcategory_name : updatedProduct.subcategory.title,
+                    imgUrl : updatedProduct.img_url,
+                    stock : updatedProduct.stock,
+                    user_name : updatedProduct.user.user_name
+                })
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error('Product update failed');
             }
 
-            const data = await response.json();
-            onProductUpdate(data); // Güncellenen veriyi üst komponente bildir
+
+            console.log('Product updated successfully');
         } catch (error) {
-            console.error('Update failed:', error);
-            // Hata durumunda bir işlem yapılabilir, örneğin kullanıcıya bilgi vermek
+            console.error(error);
         }
-    };
+    }
 
-    const handleInputChange = (field, value) => {
-        setEditableProduct({ ...editableProduct, [field]: value });
-    };
+    const renderEditView = () => {
+        return (
+            <>
+                <span className="productId">ID: {product.id}</span>
+                <input
+                    type="text"
+                    name="img_url"
+                    value={editableProduct.img_url}
+                    onChange={handleInputChange}
+                    className="productImage"
+                />
+                <div className="productInfo">
+                    <input
+                        type="text"
+                        name="name"
+                        value={editableProduct.name}
+                        onChange={handleInputChange}
+                        className="productName"
+                    />
+                    {/* Subcategory ve Merchant düzenlenemiyor varsayılarak kaldırılmıştır. */}
+                    <input
+                        type="text"
+                        name="description"
+                        value={editableProduct.description}
+                        onChange={handleInputChange}
+                        className="productDescription"
+                    />
+                    <input
+                        type="number"
+                        name="price"
+                        value={editableProduct.price}
+                        onChange={handleInputChange}
+                        className="productPrice"
+                    />
+                    <input
+                        type="number"
+                        name="stock"
+                        value={editableProduct.stock}
+                        onChange={handleInputChange}
+                        className="productStock"
+                    />
+                    <input
+                        type="text"
+                        readOnly
+                        value={product.user.user_name}
+                        className="productMerchant"
+                    />
 
-    const handleKeyDown = (e, field) => {
-        if (e.key === 'Enter') {
-            handleBlur(field);
-        }
+                </div>
+                <div className="productActions">
+                    <button onClick={handleSaveClick}>Save</button>
+                    <button onClick={handleCancelClick}>Cancel</button>
+                </div>
+            </>
+        );
+    };
+    const renderDefaultView = () => {
+        return (
+            <>
+                <span className="productId">ID: {product.id}</span>
+                <img src={product.img_url} className="productImage"/>
+                <div className="productInfo">
+                    <span className="productName">Name: {product.name}</span>
+                    <span className="productSubcategory">Category: {product.subcategory.title}</span>
+                    <span className="productDescription">Description: {product.description}</span>
+                    <span className="productPrice">Price: {product.price}</span>
+                    <span className="productStock">Stock: {product.stock}</span>
+                    <span className="productMerchant">Merchant: {product.user.user_name}</span>
+                </div>
+                <div className="productActions">
+                    <button onClick={handleEditClick}>Edit</button>
+                    <button onClick={handleDeleteClick}>Delete</button>
+                </div>
+            </>
+        );
     };
 
     return (
-        <div className="productListItem">
-            <p className="productId">ID: {editableProduct.id}</p>
-            <div className="productImageWrapper">
-                {isEditing.img_url ? (
-                    <input
-                        type="text"
-                        value={editableProduct.img_url}
-                        onChange={(e) => handleInputChange('img_url', e.target.value)}
-                        onBlur={() => handleBlur('img_url')}
-                        onKeyDown={(e) => handleKeyDown(e, 'img_url')}
-                        className="editableProductField"
-                        autoFocus
-                    />
-                ) : (
-                    <img
-                        src={editableProduct.img_url}
-                        alt={editableProduct.name}
-                        onDoubleClick={() => handleDoubleClick('img_url')}
-                        className="productImage"
-                    />
-                )}
-            </div>
-            {isEditing.name ? (
-                <input
-                    type="text"
-                    value={editableProduct.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    onBlur={() => handleBlur('name')}
-                    onKeyDown={(e) => handleKeyDown(e, 'name')}
-                    className="editableProductField"
-                    autoFocus
-                />
-            ) : (
-                <p onDoubleClick={() => handleDoubleClick('name')} className="productName">
-                    Name: {editableProduct.name}
-                </p>
-            )}
-            {isEditing.description ? (
-                <textarea
-                    value={editableProduct.description}
-                    onChange={(e) => handleInputChange('description', e.target.value)}
-                    onBlur={() => handleBlur('description')}
-                    onKeyDown={(e) => handleKeyDown(e, 'description')}
-                    className="editableProductField"
-                    autoFocus
-                />
-            ) : (
-                <p onDoubleClick={() => handleDoubleClick('description')} className="productDescription">
-                    Description: {editableProduct.description}
-                </p>
-            )}
-            {isEditing.price ? (
-                <input
-                    type="text"
-                    value={editableProduct.price}
-                    onChange={(e) => handleInputChange('price', e.target.value)}
-                    onBlur={() => handleBlur('price')}
-                    onKeyDown={(e) => handleKeyDown(e, 'price')}
-                    className="editableProductField"
-                    autoFocus
-                />
-            ) : (
-                <p onDoubleClick={() => handleDoubleClick('price')} className="productPrice">
-                    Price: ${editableProduct.price}
-                </p>
-            )}
-            {isEditing.stock ? (
-                <input
-                    type="number"
-                    min="0"
-                    value={editableProduct.stock}
-                    onChange={(e) => handleInputChange('stock', e.target.value)}
-                    onBlur={() => handleBlur('stock')}
-                    onKeyDown={(e) => handleKeyDown(e, 'stock')}
-                    className="editableProductField"
-                    autoFocus
-                />
-            ) : (
-                <p onDoubleClick={() => handleDoubleClick('stock')} className="productStock">
-                    Stock: {editableProduct.stock}
-                </p>
-            )}
-            {isEditing.merchantName ? (
-                <input
-                    type="text"
-                    value={editableProduct.merchantName}
-                    onChange={(e) => handleInputChange('', e.target.value)}
-                    onBlur={() => handleBlur('merchantName')}
-                    onKeyDown={(e) => handleKeyDown(e, 'merchantName')}
-                    className="editableProductField"
-                    autoFocus
-                />
-            ) : (
-                <p onDoubleClick={() => handleDoubleClick('merchantName')} className="productMerchantName">
-                    Merchant: {editableProduct.merchantName}
-                </p>
-            )}
+        <div className={`productListItem ${isEditing ? "editing" : ""}`}>
+            {isEditing ? renderEditView() : renderDefaultView()}
         </div>
     );
 };

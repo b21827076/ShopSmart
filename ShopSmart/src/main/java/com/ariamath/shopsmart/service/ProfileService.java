@@ -36,4 +36,9 @@ public class ProfileService {
         Profile profile = profileRepository.getByUserId(userId);
         profileRepository.delete(profile);
     }
+
+    public void deleteProfileByUserName(String username) {
+        Profile profile = profileRepository.getByUserName(username);
+        profileRepository.delete(profile);
+    }
 }

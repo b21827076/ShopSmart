@@ -16,7 +16,6 @@ const Admin = (props) => {
         <AdminTabs />
 
       </div>
-
     </>
   );
 };

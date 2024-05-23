@@ -124,9 +124,7 @@ public class SignupService {
 
     }
 */
-    public List<PendingUserResponse> getAllPendingUsers() {
-        return (List<PendingUserResponse>) pendingUserRepository.findAll()
-                .stream()
-                .map((user) -> new PendingUserResponse(user.getUser_name(), user.getEmail(), user.getRole_name()));
+    public List<PendingUser> getAllPendingUsers() {
+        return pendingUserRepository.findAll();
     }
 }

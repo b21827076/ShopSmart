@@ -1,4 +1,5 @@
 package com.ariamath.shopsmart.controller;
+import com.ariamath.shopsmart.entity.PendingUser;
 import com.ariamath.shopsmart.entity.User;
 import com.ariamath.shopsmart.request.ChangePasswordRequest;
 import com.ariamath.shopsmart.request.ForgottenPasswordRequest;
@@ -7,6 +8,9 @@ import com.ariamath.shopsmart.service.StartupService;
 import com.ariamath.shopsmart.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +35,17 @@ public class UserController {
         return new ResponseEntity<>(userService.getOneUserByUserName(username), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{userId}")
+    /*@DeleteMapping("/{userId}")
     public void deleteUserByUserId(@PathVariable Long userId){
         userService.deleteUser(userId);
     }
+*/
+    @DeleteMapping("/{username}")
+    public void deleteUserByUserName(@PathVariable String username){
+        User user = userService.getOneUserByUserName(username);
+        userService.deleteUser(user.getId());
+    }
+
 
     @PutMapping("/{userId}")
     public void updateUserByUserId(@PathVariable Long userId, @RequestBody UserUpdateRequest userUpdateRequest){
@@ -53,4 +64,14 @@ public class UserController {
         return new ResponseEntity<>(password,HttpStatus.OK);
     }
 
+    @GetMapping()
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    }
+
+  /*   @GetMapping("/pending-users") pending userlar icin get request
+    public ResponseEntity<List<PendingUser>> getPendingUsers() {
+        List<PendingUser> pendingUsers = pendingUserService.findAll();
+        return new ResponseEntity<>(pendingUsers, HttpStatus.OK);
+    } */
 }

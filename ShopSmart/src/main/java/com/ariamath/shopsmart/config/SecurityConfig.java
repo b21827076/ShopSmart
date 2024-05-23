@@ -73,7 +73,7 @@ public class SecurityConfig {
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/user/**").authenticated();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/api/user/**").authenticated();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/user/**").authenticated();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE,"/api/user/**").authenticated();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE,"/api/user/**").hasAnyAuthority("Admin");
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/api/profile/**").authenticated();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/profile/**").authenticated();

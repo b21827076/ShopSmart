@@ -19,6 +19,10 @@
   display: flex;
 }
 
+.admin-tabs {
+  display: inline;
+}
+
 .tabs {
   padding: 15px;
   text-align: center;

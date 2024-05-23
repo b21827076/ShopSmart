@@ -32,13 +32,6 @@ const ManageProducts = () => {
   };
 
 
-
-
-
-
-
-
-
   console.log("user role: ", role)
 
 

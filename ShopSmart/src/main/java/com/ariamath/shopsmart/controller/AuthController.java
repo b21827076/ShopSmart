@@ -113,8 +113,8 @@ public class AuthController {
         signupService.denyUser(approveUserRequest.getUser_name());
     }
 
-    @GetMapping("")
-    public List<PendingUserResponse> getPendingUsers() {
+    @GetMapping()
+    public List<PendingUser> getPendingUsers() {
         return signupService.getAllPendingUsers();
     }
 

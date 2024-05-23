@@ -85,9 +85,6 @@ const App = () => {
             )}
           />
 
-          
-
-         
           <Route 
             path="/category/:categoryId/subcategory/:subcategoryId"
             render={(props) => (
@@ -136,7 +133,6 @@ const App = () => {
             )}
           />
 
-
           <Route
             path = "/products/:productId"
             render={(props) => (
@@ -152,23 +148,6 @@ const App = () => {
               />
             )}
           />
-
-
-          {/*<Route
-            path="/announcements"
-            render={(props) => (
-              <Announcements
-                {...props}
-                keyword={keyword}
-                setKeyword={setKeyword}
-                isSearched={isSearched}
-                setSearched={setSearched}
-                isNotify={isNotify}
-                setIsNotify={setIsNotify}
-                messageSender={messageSender}
-              />
-            )}
-          /> */}
 
           <Route
             path="/admin"
@@ -201,39 +180,6 @@ const App = () => {
               />
             )}
           />
-
-          {/*<Route
-            path="/messages"
-            render={(props) => (
-              <Messages
-                {...props}
-                keyword={keyword}
-                setKeyword={setKeyword}
-                isSearched={isSearched}
-                setSearched={setSearched}
-                stompClient={stomp}
-                isNotify={isNotify}
-                setIsNotify={setIsNotify}
-                messageSender={messageSender}
-              />
-            )}
-          />
-
-          <Route
-            path="/jobs"
-            render={(props) => (
-              <Jobs
-                {...props}
-                keyword={keyword}
-                setKeyword={setKeyword}
-                isSearched={isSearched}
-                setSearched={setSearched}
-                isNotify={isNotify}
-                setIsNotify={setIsNotify}
-                messageSender={messageSender}
-              />
-            )}
-          /> */}
 
           <Route exact path="/">
             <Redirect to="/auth/login" />

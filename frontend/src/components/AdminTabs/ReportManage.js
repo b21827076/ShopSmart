@@ -9,6 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import { colors, fabClasses, List, Box } from "@mui/material";
 import { Block, DeleteRounded } from "@mui/icons-material";
 
+/*
+
 const ReportManage = () => {
   const [rows, setRows] = useState([]);
   const [finalizedRows, setFinalizedRows] = useState([]);
@@ -282,4 +284,4 @@ const ReportManage = () => {
   );
 };
 
-export default ReportManage;
+export default ReportManage; */

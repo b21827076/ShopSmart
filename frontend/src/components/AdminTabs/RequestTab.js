@@ -7,6 +7,8 @@ import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 
+/*
+
 const RequestTab = ({ pingUserList }) => {
   const [pageSize, setPageSize] = useState(20);
 
@@ -148,4 +150,4 @@ const RequestTab = ({ pingUserList }) => {
   );
 };
 
-export default RequestTab;
+export default RequestTab; */

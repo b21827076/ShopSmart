@@ -6,6 +6,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import { Block, HowToReg } from "@mui/icons-material";
 
+/*
+
 const ApproveUsersTab = ({ setPingUserList, pingUserList }) => {
   const [rows, setRows] = useState([]);
   const [finalizedRows, setFinalizedRows] = useState([]);
@@ -235,4 +237,4 @@ const ApproveUsersTab = ({ setPingUserList, pingUserList }) => {
   );
 };
 
-export default ApproveUsersTab;
+export default ApproveUsersTab; */
